@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c9649557905bf7a80fca9e0d54cbcb7662627860">
+        <dex dex="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-25.1.1_cbcbc89b0ad43db127ff4369d9bb31314166c081.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
+        <dex dex="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-25.1.1_726406ecc0a2364ebc7e838f57a4c49d9bbba451.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b31b465c05ccb1df681b2050df39317702f0af16">
+        <dex dex="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/pre-dexed/debug/instant-run_088d44f52b2bbb15e5e1b135cb236fc3041e2d6c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
+        <dex dex="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-25.1.1_a364073b1326a5c3b4984650e449bcfafb15dc93.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.1/support-annotations-25.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
+        <dex dex="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/pre-dexed/debug/support-annotations-25.1.1_14c431eca68000f9018407a18a0b4860c9a36598.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-25.1.1_4ed4e9cd4ecf7e460caf425d80b69db66f5abfdc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
+        <dex dex="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-25.1.1_cbdee18799fb14be214217abec01b813a523beb2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/exploded-aar/com.android.support/design/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="cd7951e04cfb9a8bf008d544a478d9a8d8192d38">
+        <dex dex="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/pre-dexed/debug/com.android.support-design-25.1.1_1433f62dbd246f7ce16861333f810ece7674b14b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
+        <dex dex="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-25.1.1_10e04650c274b4ab9bc2dba5795730ea2ea6c403.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/exploded-aar/com.android.support/transition/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="15b049fedbd8e3926bf99d9e45dfc9b2a1043bb9">
+        <dex dex="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/pre-dexed/debug/com.android.support-transition-25.1.1_0adc911fbef5d70fe76792049050f9190cc96f99.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
+        <dex dex="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-25.1.1_5e8dd9850b985043a938637397ed648e98059ebe.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
+        <dex dex="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-25.1.1_b8926f668394db8c5a5aa60009cbb451ed066494.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
+        <dex dex="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-25.1.1_93c79062a93b24cc1f79069b3501fbb9ce8e9455.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
+        <dex dex="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-25.1.1_ab7b7d313c0f4eb1d528dc2f1e75f871a042c71f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c5cecdcf420632144b5d6189ce54111f4cf437dc">
+        <dex dex="/home/thomas/AndroidStudioProjects/VisitCard/app/build/intermediates/pre-dexed/debug/instant-run-bootstrap_50ac8d45fbd6c39c635319ba552d7edeba7014e3.jar" />
+    </item>
+
+</items>
