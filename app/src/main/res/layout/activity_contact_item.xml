@@ -20,15 +20,15 @@
         android:layout_marginLeft="73dp"
         android:layout_marginStart="73dp"
         android:layout_marginBottom="203dp"
-        android:id="@+id/textView" />
+        android:id="@+id/tvNumero" />
 
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
+        android:layout_alignTop="@+id/tvNumero"
+        android:layout_alignLeft="@+id/tvNumero"
+        android:layout_alignStart="@+id/tvNumero"
         android:layout_marginTop="37dp"
-        android:id="@+id/Email" />
+        android:id="@+id/tvEmail" />
 </RelativeLayout>
