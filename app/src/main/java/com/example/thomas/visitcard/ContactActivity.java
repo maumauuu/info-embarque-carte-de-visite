@@ -38,8 +38,13 @@ public class ContactActivity extends ListActivity {
 
         Intent intent = new Intent(ContactActivity.this, ContactItemActivity.class);
 
-        intent.putExtra("num", carte.getNumero());
+        intent.putExtra("name", carte.getName());
+        intent.putExtra("fullname", carte.getFullname());
         intent.putExtra("email", carte.getEmail());
+        intent.putExtra("num", carte.getNumero());
+        intent.putExtra("address", carte.getAddress());
+        intent.putExtra("city", carte.getCity());
+        intent.putExtra("postal", carte.getPostal());
 
         startActivity(intent);
 

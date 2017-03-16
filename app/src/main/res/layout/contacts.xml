@@ -3,8 +3,14 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    >
+    android:padding="5dp">
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:background="#CECECE">
 
     <TextView
         android:text="Name"
@@ -25,4 +31,8 @@
         android:layout_toRightOf="@+id/textname"
         android:textStyle="bold"
         android:layout_toEndOf="@+id/textname" />
+
+        </RelativeLayout>
+
+    
 </RelativeLayout>

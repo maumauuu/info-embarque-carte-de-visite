@@ -4,31 +4,107 @@
     android:id="@+id/activity_contact_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.thomas.visitcard.ContactItemActivity">
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:background="#000000">
 
     <TextView
         android:text="Num"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="73dp"
-        android:layout_marginStart="73dp"
-        android:layout_marginBottom="203dp"
-        android:id="@+id/tvNumero" />
+        android:id="@+id/tvNum"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp"
+        android:padding="10dp"
+        />
 
     <TextView
         android:text="TextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/tvNumero"
-        android:layout_alignLeft="@+id/tvNumero"
-        android:layout_alignStart="@+id/tvNumero"
-        android:layout_marginTop="37dp"
-        android:id="@+id/tvEmail" />
+        android:layout_alignTop="@+id/tvNum"
+        android:layout_alignLeft="@+id/tvNum"
+        android:layout_alignStart="@+id/tvNum"
+        android:id="@+id/tvEmail"
+        android:textSize="30dp"
+        android:textColor="#FFFFFF"
+        android:padding="10dp"
+        />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/tvNum"
+        android:layout_alignStart="@+id/tvNum"
+        android:id="@+id/tvName"
+        android:textSize="30dp"
+        android:textColor="#FFFFFF"
+        android:padding="10dp"
+        />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvName"
+        android:layout_alignLeft="@+id/tvName"
+        android:layout_alignStart="@+id/tvName"
+        android:id="@+id/tvFullName"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp"
+        android:padding="10dp"
+        />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvFullName"
+        android:layout_alignRight="@+id/tvFullName"
+        android:layout_alignEnd="@+id/tvFullName"
+        android:id="@+id/tvAddress"
+        android:textSize="30dp"
+        android:textColor="#FFFFFF"
+        android:padding="10dp"
+        />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvAddress"
+        android:layout_alignRight="@+id/tvAddress"
+        android:layout_alignEnd="@+id/tvAddress"
+        android:id="@+id/tvCity"
+        android:textSize="30dp"
+        android:textColor="#FFFFFF"
+        android:padding="10dp"
+        />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvCity"
+        android:layout_alignLeft="@+id/tvCity"
+        android:layout_alignStart="@+id/tvCity"
+        android:id="@+id/tvPostal"
+        android:textSize="30dp"
+        android:textColor="#FFFFFF"
+        android:padding="10dp"
+
+        />
+
+   </LinearLayout>
 </RelativeLayout>

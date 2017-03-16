@@ -7,8 +7,14 @@ import android.widget.TextView;
 
 public class ContactItemActivity extends AppCompatActivity {
 
+    private TextView tvName;
+    private TextView tvFullName;
     private TextView tvEmail;
     private TextView tvNum;
+    private TextView tvAddress;
+    private TextView tvCity;
+    private TextView tvPostal;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,10 +24,22 @@ public class ContactItemActivity extends AppCompatActivity {
         Intent i = getIntent();
 
         tvEmail = (TextView) findViewById(R.id.tvEmail);
-        tvNum = (TextView) findViewById(R.id.tvNumero);
+        tvNum = (TextView) findViewById(R.id.tvNum);
+        tvName = (TextView) findViewById(R.id.tvName);
+        tvFullName = (TextView) findViewById(R.id.tvFullName);
+        tvAddress = (TextView) findViewById(R.id.tvAddress);
+        tvCity = (TextView) findViewById(R.id.tvCity);
+        tvPostal = (TextView) findViewById(R.id.tvPostal);
+
 
         tvEmail.setText(i.getStringExtra("email"));
         tvNum.setText(i.getStringExtra("num"));
+        tvName.setText(i.getStringExtra("name"));
+        tvFullName.setText(i.getStringExtra("fullname"));
+        tvAddress.setText(i.getStringExtra("address"));
+        tvCity.setText(i.getStringExtra("city"));
+        tvPostal.setText(i.getStringExtra("postal"));
+
 
     }
 }
