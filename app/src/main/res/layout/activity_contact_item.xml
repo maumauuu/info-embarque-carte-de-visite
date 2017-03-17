@@ -4,15 +4,25 @@
     android:id="@+id/activity_contact_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#CECECE"
     tools:context="com.example.thomas.visitcard.ContactItemActivity">
-
 
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:background="#000000">
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.2dp"
+            android:id="@+id/separator12"
+            android:visibility="visible"
+            android:background="@android:color/darker_gray"/>
 
     <TextView
         android:text="Num"
@@ -23,11 +33,19 @@
         android:layout_alignParentStart="true"
         android:id="@+id/tvNum"
         android:textColor="#FFFFFF"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:padding="10dp"
         />
 
-    <TextView
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.2dp"
+            android:id="@+id/separator2"
+            android:visibility="visible"
+            android:background="@android:color/darker_gray"/>
+
+
+        <TextView
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,38 +53,19 @@
         android:layout_alignLeft="@+id/tvNum"
         android:layout_alignStart="@+id/tvNum"
         android:id="@+id/tvEmail"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:textColor="#FFFFFF"
         android:padding="10dp"
         />
 
-    <TextView
-        android:text="TextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/tvNum"
-        android:layout_alignStart="@+id/tvNum"
-        android:id="@+id/tvName"
-        android:textSize="30dp"
-        android:textColor="#FFFFFF"
-        android:padding="10dp"
-        />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.2dp"
+            android:id="@+id/separator"
+            android:visibility="visible"
+            android:background="@android:color/darker_gray"/>
 
-    <TextView
-        android:text="TextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/tvName"
-        android:layout_alignLeft="@+id/tvName"
-        android:layout_alignStart="@+id/tvName"
-        android:id="@+id/tvFullName"
-        android:textColor="#FFFFFF"
-        android:textSize="30dp"
-        android:padding="10dp"
-        />
-
-    <TextView
+        <TextView
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,12 +73,20 @@
         android:layout_alignRight="@+id/tvFullName"
         android:layout_alignEnd="@+id/tvFullName"
         android:id="@+id/tvAddress"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:textColor="#FFFFFF"
         android:padding="10dp"
         />
 
-    <TextView
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.2dp"
+            android:id="@+id/separator10"
+            android:visibility="visible"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -87,12 +94,20 @@
         android:layout_alignRight="@+id/tvAddress"
         android:layout_alignEnd="@+id/tvAddress"
         android:id="@+id/tvCity"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:textColor="#FFFFFF"
         android:padding="10dp"
         />
 
-    <TextView
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.2dp"
+            android:id="@+id/separator7"
+            android:visibility="visible"
+            android:background="@android:color/darker_gray"/>
+
+
+        <TextView
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -100,11 +115,50 @@
         android:layout_alignLeft="@+id/tvCity"
         android:layout_alignStart="@+id/tvCity"
         android:id="@+id/tvPostal"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:textColor="#FFFFFF"
         android:padding="10dp"
 
         />
 
-   </LinearLayout>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.2dp"
+            android:id="@+id/separator8"
+            android:visibility="visible"
+            android:background="@android:color/darker_gray"/>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvName"
+        android:textSize="30dp"
+        android:textColor="#000099"
+        android:padding="10dp"
+        android:layout_marginRight="29dp"
+        android:layout_marginEnd="29dp"
+        android:layout_alignBaseline="@+id/tvFullName"
+        android:layout_alignBottom="@+id/tvFullName"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvFullName"
+        android:textColor="#000099"
+        android:textSize="30dp"
+        android:padding="10dp"
+        android:layout_marginTop="87dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp" />
+
 </RelativeLayout>

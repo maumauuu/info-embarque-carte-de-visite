@@ -1,8 +1,10 @@
 package com.example.thomas.visitcard;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class ContactItemActivity extends AppCompatActivity {
@@ -39,6 +41,15 @@ public class ContactItemActivity extends AppCompatActivity {
         tvAddress.setText(i.getStringExtra("address"));
         tvCity.setText(i.getStringExtra("city"));
         tvPostal.setText(i.getStringExtra("postal"));
+
+        tvNum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent appel = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+tvNum.getText().toString() ));
+
+                startActivity(appel);
+            }
+        });
 
 
     }
