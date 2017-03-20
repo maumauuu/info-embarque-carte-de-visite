@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,6 +33,7 @@ public class CarteAdapter extends ArrayAdapter<Carte> {
             viewHolder = new CarteViewHolder();
             viewHolder.textName = (TextView) convertView.findViewById(R.id.textname);
             viewHolder.textFullname = (TextView) convertView.findViewById(R.id.textfullname);
+            viewHolder.checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
             convertView.setTag(viewHolder);
         }
 
@@ -46,5 +48,6 @@ public class CarteAdapter extends ArrayAdapter<Carte> {
     private class CarteViewHolder{
         public TextView textName;
         public TextView textFullname;
+        public CheckBox checkBox;
     }
 }
