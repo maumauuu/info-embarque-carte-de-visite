@@ -26,7 +26,7 @@ public class formulaire extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_intro);
 
         editName = (EditText) findViewById(R.id.name);
         editFullname = (EditText) findViewById(R.id.fullname);
