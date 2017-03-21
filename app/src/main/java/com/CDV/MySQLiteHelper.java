@@ -1,12 +1,10 @@
-package com.example.thomas.visitcard;
+package com.CDV;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by thomas on 14/03/17.
- */
+
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
 

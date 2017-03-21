@@ -1,4 +1,4 @@
-package com.example.thomas.visitcard;
+package com.CDV;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,14 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
 
-/**
- * Created by thomas on 15/03/17.
- */
 
 public class CarteAdapter extends ArrayAdapter<Carte> {
 

@@ -1,4 +1,4 @@
-package com.example.thomas.visitcard;
+package com.CDV;
 
 import org.junit.Test;
 

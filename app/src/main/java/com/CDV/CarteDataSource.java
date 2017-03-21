@@ -1,4 +1,4 @@
-package com.example.thomas.visitcard;
+package com.CDV;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,9 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by thomas on 14/03/17.
- */
+
 
 public class CarteDataSource {
 

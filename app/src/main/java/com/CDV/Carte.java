@@ -1,8 +1,6 @@
-package com.example.thomas.visitcard;
+package com.CDV;
 
-/**
- * Created by thomas on 14/03/17.
- */
+
 
 public class Carte {
 

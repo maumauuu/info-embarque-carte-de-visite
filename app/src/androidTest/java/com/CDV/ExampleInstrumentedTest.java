@@ -1,4 +1,4 @@
-package com.example.thomas.visitcard;
+package com.CDV;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.thomas.visitcard", appContext.getPackageName());
+        assertEquals("CDV", appContext.getPackageName());
     }
 }
