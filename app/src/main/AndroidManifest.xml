@@ -20,8 +20,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.CDV.newContact" />
+        <activity android:name="com.CDV.Scan"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"/>
+        <activity android:name="com.CDV.formulaire" />
+
         <activity android:name="com.CDV.ContactActivity" />
         <activity android:name="com.CDV.ContactItemActivity"></activity>
+
     </application>
 
 </manifest>
