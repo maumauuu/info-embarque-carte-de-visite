@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/thomas/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.0/support-annotations-22.2.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="/home/thomas/AndroidStudioProjects/info-embarque-carte-de-visite/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.0_7f1105119abc9b0c34c69d02667f6dab9c65b552.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/info-embarque-carte-de-visite/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="bede99d49aa7ee07d271ba35e57fc4b6d748067f">
+        <dex dex="/home/thomas/AndroidStudioProjects/info-embarque-carte-de-visite/app/build/intermediates/pre-dexed/debug/instant-run_2127bec2651bfad6471bc1e13562080f89bd9236.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/info-embarque-carte-de-visite/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="/home/thomas/AndroidStudioProjects/info-embarque-carte-de-visite/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-22.2.0_93645226ba1f2f6cc8acbaf5fe1b60bf37e6deae.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/info-embarque-carte-de-visite/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="dace36d379eb9390670a7e67d52152bed2955139">
+        <dex dex="/home/thomas/AndroidStudioProjects/info-embarque-carte-de-visite/app/build/intermediates/pre-dexed/debug/instant-run-bootstrap_1f6b3b0d990caa9de55b95c0859da76a8ef579cd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/.gradle/caches/modules-2/files-2.1/com.google.zxing/core/3.2.1/2287494d4f5f9f3a9a2bb6980e3f32053721b315/core-3.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="2287494d4f5f9f3a9a2bb6980e3f32053721b315">
+        <dex dex="/home/thomas/AndroidStudioProjects/info-embarque-carte-de-visite/app/build/intermediates/pre-dexed/debug/core-3.2.1_f9032d5bced2b7f32a03432dca98b40cc8019229.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/info-embarque-carte-de-visite/app/build/intermediates/exploded-aar/com.journeyapps/zxing-android-embedded/3.2.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="d4ce6303165f20650850673bd5891fbcca80caae">
+        <dex dex="/home/thomas/AndroidStudioProjects/info-embarque-carte-de-visite/app/build/intermediates/pre-dexed/debug/com.journeyapps-zxing-android-embedded-3.2.0_eb4dc497bbadd9fafc3bf0bd7c9ea08bb4c1eeb8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/info-embarque-carte-de-visite/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
+        <dex dex="/home/thomas/AndroidStudioProjects/info-embarque-carte-de-visite/app/build/intermediates/pre-dexed/debug/com.android.support-design-22.2.0_e3e142fd4f6ab5062a57eb4fd67cbcb7722dd8d0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/info-embarque-carte-de-visite/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/libs/internal_impl-22.2.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="/home/thomas/AndroidStudioProjects/info-embarque-carte-de-visite/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0_3632b89fa27596ca7115daf0ff296d7174ee030e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/thomas/AndroidStudioProjects/info-embarque-carte-de-visite/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="/home/thomas/AndroidStudioProjects/info-embarque-carte-de-visite/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-22.2.0_c78d40e59157cd6b8a3047eac0b9b67886ec3e9b.jar" />
+    </item>
+
+</items>

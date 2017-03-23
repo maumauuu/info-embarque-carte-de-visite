@@ -3,14 +3,8 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp">
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:background="#CECECE">
+    android:padding="15dp"
+    android:background="#000000">
 
         <CheckBox
             android:visibility="gone"
@@ -24,9 +18,10 @@
 
         <TextView
             android:text="Name"
+            android:textSize="24dp"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:id="@+id/textname"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/checkBox"
@@ -34,15 +29,13 @@
 
         <TextView
             android:text="Fullname"
+            android:textColor="@color/white"
+            android:textSize="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textfullname"
-            android:textStyle="bold"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/textname"
             android:layout_toEndOf="@+id/textname" />
 
     </RelativeLayout>
-
-
-</RelativeLayout>

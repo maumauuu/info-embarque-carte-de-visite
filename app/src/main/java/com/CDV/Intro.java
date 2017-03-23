@@ -17,7 +17,7 @@ public class Intro extends AppCompatActivity {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                startActivity(new Intent(Intro.this, newContact.class));
+                startActivity(new Intent(Intro.this, MainActivity.class));
                 finish();
             }
         };
