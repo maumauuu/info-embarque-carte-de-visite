@@ -6,7 +6,7 @@
     android:padding="15dp"
     android:background="#000000">
 
-        <CheckBox
+    <CheckBox
             android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,4 +38,5 @@
             android:layout_toRightOf="@+id/textname"
             android:layout_toEndOf="@+id/textname" />
 
-    </RelativeLayout>
+
+</RelativeLayout>
