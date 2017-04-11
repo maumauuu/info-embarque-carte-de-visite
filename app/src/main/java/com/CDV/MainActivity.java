@@ -105,13 +105,15 @@ public class MainActivity extends AppCompatActivity {
 
     protected void Fill(IntentResult result){
         String c = result.getContents();
-        name = "ffff";
-        Lastname ="ggggg" ;
-        Email = "ffffsdsd";
-        phone = "22364126";
-        Address = "hlglfmg";
-        City = "rfdff" ;
-        Postal = "26634";
+        String Tc[] = c.split(",");
+
+        name = Tc[0];
+        Lastname =Tc[1];
+        Email = Tc[2];
+        phone = Tc[3];
+        Address = Tc[4];
+        City = Tc[5] ;
+        Postal = Tc[6];
 
         datasource.createCarte(name, Lastname,Email,phone,Address,City,Postal);
 
