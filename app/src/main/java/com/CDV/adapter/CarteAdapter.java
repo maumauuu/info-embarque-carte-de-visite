@@ -1,4 +1,4 @@
-package com.CDV;
+package com.CDV.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
+
+import com.CDV.dataBase.Carte;
+import com.CDV.R;
 
 import java.util.List;
 

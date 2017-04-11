@@ -1,4 +1,4 @@
-package com.CDV;
+package com.CDV.dataBase;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

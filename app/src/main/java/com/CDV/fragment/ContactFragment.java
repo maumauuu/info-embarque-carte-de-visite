@@ -1,7 +1,6 @@
-package com.CDV;
+package com.CDV.fragment;
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -9,11 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.CDV.dataBase.Carte;
+import com.CDV.dataBase.CarteDataSource;
+import com.CDV.dataBase.ContactItemActivity;
+import com.CDV.R;
+import com.CDV.adapter.CarteAdapter;
+
 import java.util.List;
 
-/**
- * Created by thomas on 23/03/17.
- */
 
 public class ContactFragment extends ListFragment {
 
