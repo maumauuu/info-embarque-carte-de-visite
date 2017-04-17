@@ -33,19 +33,8 @@ import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
 
-    private  String name;
-    private  String Lastname;
-    private  String Email;
-    private  String phone;
-    private  String Address;
-    private  String City;
-    private  String Postal;
 
     private CarteDataSource datasource;
-
-    private Toolbar toolbar;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
 
     private List<ItemSlideMenu> listSliding;
     private SlidingMenuAdapter adapter;
@@ -62,12 +51,6 @@ public class MainActivity extends ActionBarActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
-
-
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
 
         datasource = new CarteDataSource(this);
         datasource.open();
@@ -80,6 +63,8 @@ public class MainActivity extends ActionBarActivity {
 
         listSliding.add(new ItemSlideMenu(R.drawable.contact, "See contact"));
         listSliding.add(new ItemSlideMenu(R.drawable.add, "Add Contact"));
+        listSliding.add(new ItemSlideMenu(R.drawable.add, "Profil"));
+
 
 
         adapter = new SlidingMenuAdapter(this, listSliding);
@@ -130,88 +115,6 @@ public class MainActivity extends ActionBarActivity {
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
     }
 
-    public void scanner(View view){
-        IntentIntegrator integrator = new IntentIntegrator(this);
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-        integrator.setPrompt("Scan");
-        integrator.setCameraId(0);
-        integrator.setBeepEnabled(false);
-        integrator.setBarcodeImageEnabled(false);
-        integrator.initiateScan();
-    }
-
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter2 = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter2.addFragment(new ContactFragment(), "Contacts");
-        adapter2.addFragment(new AddContactFragment(), "Ajouter Contact");
-        viewPager.setAdapter(adapter2);
-    }
-
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
-    }
-
-    protected void Fill(IntentResult result){
-       // String c = result.getContents();
-        String c = "Thomas,SGN, , ,3 rue des lilas,Nice,06000";
-        String Tc[] = c.split(",");
-
-        name = Tc[0];
-        Lastname =Tc[1];
-        Email = Tc[2];
-        phone = Tc[3];
-        Address = Tc[4];
-        City = Tc[5] ;
-        Postal = Tc[6];
-
-        datasource.createCarte(name, Lastname,Email,phone,Address,City,Postal);
-
-
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result= IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
-        if(result!=null){
-            if(result.getContents()==null){
-
-            } else{;
-                Toast.makeText(this, "Contact ajouté", Toast.LENGTH_SHORT).show();
-                Fill(result);
-                startActivity(new Intent(MainActivity.this, MainActivity.class));
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-            startActivity(new Intent(MainActivity.this, MainActivity.class));
-        }
-
-    }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -234,11 +137,10 @@ public class MainActivity extends ActionBarActivity {
         android.support.v4.app.Fragment fragment = null;
         switch (pos) {
             case 0:
-                viewPager.setCurrentItem(pos);
+                fragment = new GestionContactFragment();
                 break;
             case 1:
-                viewPager.setCurrentItem(pos);
-
+                fragment = new GestionContactFragment();
                 break;
             case 2:
                 fragment = new Profil();
