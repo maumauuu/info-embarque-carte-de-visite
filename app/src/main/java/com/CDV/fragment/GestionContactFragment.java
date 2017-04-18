@@ -1,6 +1,6 @@
-package com.CDV;
+package com.CDV.fragment;
 
-import android.os.Build;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,6 +8,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.CDV.R;
 
 public class GestionContactFragment extends Fragment {
 
@@ -23,7 +26,9 @@ public class GestionContactFragment extends Fragment {
         tabLayout = (TabLayout)view.findViewById(R.id.tabs);
         viewPager = (ViewPager)view.findViewById(R.id.view_pager);
         viewPager.setAdapter(new CustomFragmentPageAdapter(getChildFragmentManager()));
+        tabLayout.setTabTextColors(Color.LTGRAY,Color.WHITE);
         tabLayout.setupWithViewPager(viewPager);
         return view;
+
     }
 }

@@ -1,12 +1,9 @@
-package com.CDV;
+package com.CDV.fragment;
 
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
-import com.CDV.fragment.AddContactFragment;
-import com.CDV.fragment.ContactFragment;
 
 public class CustomFragmentPageAdapter extends FragmentPagerAdapter {
 

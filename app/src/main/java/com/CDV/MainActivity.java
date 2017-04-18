@@ -1,32 +1,21 @@
 package com.CDV;
 
-import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.CDV.adapter.SlidingMenuAdapter;
 import com.CDV.dataBase.CarteDataSource;
-import com.CDV.fragment.AddContactFragment;
-import com.CDV.fragment.ContactFragment;
+import com.CDV.fragment.GestionContactFragment;
 import com.CDV.fragment.Profil;
 import com.CDV.model.ItemSlideMenu;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -157,5 +146,15 @@ public class MainActivity extends ActionBarActivity {
             transaction.addToBackStack(null);
             transaction.commit();
         }
+    }
+
+    public void scanner(View view){
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+        integrator.setPrompt("Scan");
+        integrator.setCameraId(0);
+        integrator.setBeepEnabled(false);
+        integrator.setBarcodeImageEnabled(false);
+        integrator.initiateScan();
     }
 }

@@ -32,15 +32,7 @@ public class AddContactFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public void scanner(View view){
-        IntentIntegrator integrator = new IntentIntegrator(getActivity());
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-        integrator.setPrompt("Scan");
-        integrator.setCameraId(0);
-        integrator.setBeepEnabled(false);
-        integrator.setBarcodeImageEnabled(false);
-        integrator.initiateScan();
-    }
+
 
     protected void Fill(IntentResult result){
         // String c = result.getContents();

@@ -1,4 +1,4 @@
-package com.CDV;
+package com.CDV.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
