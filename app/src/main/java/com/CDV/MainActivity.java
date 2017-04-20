@@ -1,5 +1,6 @@
 package com.CDV;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -8,12 +9,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.CDV.adapter.SlidingMenuAdapter;
 import com.CDV.dataBase.CarteDataSource;
 import com.CDV.fragment.GestionContactFragment;
-import com.CDV.fragment.Profil;
+import com.CDV.fragment.ProfilFragment;
 import com.CDV.model.ItemSlideMenu;
 import com.google.zxing.integration.android.IntentIntegrator;
 
@@ -30,6 +32,8 @@ public class MainActivity extends ActionBarActivity {
     private ListView listViewSliding;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+
+
 
 
     @Override
@@ -53,8 +57,6 @@ public class MainActivity extends ActionBarActivity {
         listSliding.add(new ItemSlideMenu(R.drawable.contact, "See contact"));
         listSliding.add(new ItemSlideMenu(R.drawable.add, "Add Contact"));
         listSliding.add(new ItemSlideMenu(R.drawable.add, "Profil"));
-
-
 
         adapter = new SlidingMenuAdapter(this, listSliding);
         listViewSliding.setAdapter(adapter);
@@ -132,10 +134,10 @@ public class MainActivity extends ActionBarActivity {
                 fragment = new GestionContactFragment();
                 break;
             case 2:
-                fragment = new Profil();
+                fragment = new ProfilFragment();
                 break;
             default:
-                fragment = new Profil();
+                fragment = new ProfilFragment();
                 break;
         }
 
@@ -156,5 +158,8 @@ public class MainActivity extends ActionBarActivity {
         integrator.setBeepEnabled(false);
         integrator.setBarcodeImageEnabled(false);
         integrator.initiateScan();
+    }
+
+    public void send(View view){
     }
 }
