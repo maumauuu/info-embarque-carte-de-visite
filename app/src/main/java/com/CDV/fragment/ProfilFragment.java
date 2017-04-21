@@ -58,7 +58,7 @@ public class ProfilFragment extends Fragment {
         dataSource = new CarteDataSource(getActivity());
 
         dataSource.open();
-        List<Carte> cartes = dataSource.getAllCarte();
+        List<Carte> cartes = dataSource.getAllProfil();
         if (cartes.size() != 0) {
             Carte carte = cartes.get(cartes.size()-1);
             editname.setText(carte.getName());
@@ -89,7 +89,7 @@ public class ProfilFragment extends Fragment {
             public void onClick(View v) {
                 dataSource.open();
 
-                dataSource.createCarte(editname.getText().toString(), editprenom.getText().toString(), editemail.getText().toString(),
+                dataSource.createProfil(editname.getText().toString(), editprenom.getText().toString(), editemail.getText().toString(),
                         editnumero.getText().toString(), editadresse.getText().toString(), editpostal.getText().toString(), editcity.getText().toString());
 
                 dataSource.close();

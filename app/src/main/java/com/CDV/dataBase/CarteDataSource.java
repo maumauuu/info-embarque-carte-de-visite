@@ -19,6 +19,10 @@ public class CarteDataSource {
         MySQLiteHelper.COLUMN_FULLNAME, MySQLiteHelper.COLUMN_EMAIL, MySQLiteHelper.COLUMN_NUMERO,
             MySQLiteHelper.COLUMN_ADDRESS, MySQLiteHelper.COLUMN_CITY, MySQLiteHelper.COLUMN_POSTAL};
 
+    private String[] allColumnsProfil = {MySQLiteHelper.PROFIL_ID, MySQLiteHelper.PROFIL_NAME,
+            MySQLiteHelper.PROFIL_FULLNAME, MySQLiteHelper.PROFIL_EMAIL, MySQLiteHelper.PROFIL_NUMERO,
+            MySQLiteHelper.PROFIL_ADDRESS, MySQLiteHelper.PROFIL_CITY, MySQLiteHelper.PROFIL_POSTAL};
+
 
     public CarteDataSource(Context context){
         dbHelper = new MySQLiteHelper(context);
@@ -55,6 +59,29 @@ public class CarteDataSource {
 
     }
 
+    public Carte createProfil(String name, String fullname, String email, String numero, String address, String city, String postal){
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.PROFIL_NAME, name);
+        values.put(MySQLiteHelper.PROFIL_FULLNAME, fullname);
+        values.put(MySQLiteHelper.PROFIL_EMAIL, email);
+        values.put(MySQLiteHelper.PROFIL_NUMERO, numero);
+        values.put(MySQLiteHelper.PROFIL_ADDRESS, address);
+        values.put(MySQLiteHelper.PROFIL_CITY, city);
+        values.put(MySQLiteHelper.PROFIL_POSTAL, postal);
+
+        long insertId = database.insert(MySQLiteHelper.TABLE_PROFIL, null, values);
+
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_PROFIL, allColumnsProfil, MySQLiteHelper.PROFIL_ID + " = " + insertId, null,
+                null, null, null);
+
+        cursor.moveToFirst();
+        Carte newCarte = cursorToComment(cursor);
+        cursor.close();
+
+        return newCarte;
+
+    }
+
     public void deleteCarte(Carte carte){
         long id = carte.getId();
         database.delete(MySQLiteHelper.TABLE_CARTE, MySQLiteHelper.COLUMN_ID + " = " + id, null);
@@ -64,6 +91,22 @@ public class CarteDataSource {
         List<Carte> cartes = new ArrayList<Carte>();
 
         Cursor cursor = database.query(MySQLiteHelper.TABLE_CARTE, allColumns, null, null, null, null, null);
+
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            Carte carte = cursorToComment(cursor);
+            cartes.add(carte);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return cartes;
+    }
+
+    public List<Carte> getAllProfil(){
+        List<Carte> cartes = new ArrayList<Carte>();
+
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_PROFIL, allColumnsProfil, null, null, null, null, null);
 
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
