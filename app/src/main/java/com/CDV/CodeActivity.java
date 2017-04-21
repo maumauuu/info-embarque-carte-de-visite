@@ -17,6 +17,7 @@ import com.google.zxing.qrcode.encoder.ByteMatrix;
 public class CodeActivity extends AppCompatActivity {
 
     private ImageView image;
+    private Code code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,27 +27,8 @@ public class CodeActivity extends AppCompatActivity {
         Intent i = getIntent();
 
         image = (ImageView) findViewById(R.id.imageView);
+        code = new Code(i.getStringExtra("data"));
 
-        QRCodeWriter writer = new QRCodeWriter();
-        try {
-            BitMatrix bitMatrix = writer.encode(i.getStringExtra("data"), BarcodeFormat.QR_CODE, 512, 512);
-            int width = 512;
-            int height = 512;
-            Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-            for (int x = 0; x < width; x++) {
-                for (int y = 0; y < height; y++) {
-                    if (bitMatrix.get(x, y))
-                        bmp.setPixel(x, y, Color.BLACK);
-                    else
-                        bmp.setPixel(x, y, Color.WHITE);
-                }
-            }
-            image.setImageBitmap(bmp);
-        } catch (WriterException e) {
-            //Log.e("QR ERROR", ""+e);
-
-        }
-
-
+        image.setImageBitmap(code.dataToBitmap());
     }
 }
