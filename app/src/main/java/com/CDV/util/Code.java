@@ -1,14 +1,23 @@
-package com.CDV;
+package com.CDV.util;
 
 import android.app.Activity;
+import android.content.ContentProviderOperation;
+import android.content.ContentProviderResult;
+import android.content.OperationApplicationException;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.RemoteException;
+import android.provider.ContactsContract;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.qrcode.QRCodeWriter;
+
+import java.util.ArrayList;
+
+import static android.provider.ContactsContract.CommonDataKinds.Phone.TYPE_WORK;
 
 public class Code {
 
@@ -42,6 +51,9 @@ public class Code {
 
         return bmp;
     }
+
+
+
 
 
 

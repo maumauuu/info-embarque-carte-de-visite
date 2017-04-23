@@ -10,8 +10,6 @@ import android.os.RemoteException;
 import android.provider.ContactsContract;
 import android.util.Log;
 
-import com.google.zxing.integration.android.IntentIntegrator;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -121,46 +119,6 @@ public class util {
 
 
 
-    }
-
-
-    //methode pour afficher la liste des contacts du tel
-    public  static
-    List<String> retrieveContacts(ContentResolver contentResolver)
-    {
-        final Set<String> contacts = new HashSet<String>();
-        final Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, new String[] { ContactsContract.Data.DISPLAY_NAME, ContactsContract.Data._ID, ContactsContract.Contacts.HAS_PHONE_NUMBER }, null, null, null);
-
-        if (cursor == null)
-        {
-            Log.e("retrieveContacts", "Cannot retrieve the contacts");
-            return null;
-        }
-
-        if (cursor.moveToFirst() == true)
-        {
-            while (cursor.moveToNext() == true){
-                final long id = Long.parseLong(cursor.getString(cursor.getColumnIndex(ContactsContract.Data._ID)));
-                final String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
-                final int hasPhoneNumber = cursor.getInt(cursor.getColumnIndex(ContactsContract.Data.HAS_PHONE_NUMBER));
-
-                if (hasPhoneNumber > 0)
-                {
-                    contacts.add(name);
-                }
-            }
-
-        }
-
-        if (cursor.isClosed() == false)
-        {
-            cursor.close();
-        }
-
-        final List<String> sortedContacts = new ArrayList<String>(contacts);
-        Collections.sort(sortedContacts);
-
-        return sortedContacts;
     }
 
 

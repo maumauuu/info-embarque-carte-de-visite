@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.CDV.util.Code;
+
 public class CodeActivity extends AppCompatActivity {
 
     private ImageView image;
