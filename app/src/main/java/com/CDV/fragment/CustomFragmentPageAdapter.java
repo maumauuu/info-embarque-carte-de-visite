@@ -16,7 +16,7 @@ public class CustomFragmentPageAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new ContactFragment();
+                return new SeeContactFragment();
             case 1:
                 return new AddContactFragment();
         }

@@ -15,4 +15,5 @@
         android:onClick="scanner"
         />
 
+
 </RelativeLayout>

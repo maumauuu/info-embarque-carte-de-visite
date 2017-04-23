@@ -1,6 +1,11 @@
 package com.CDV;
 
+import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.ContactsContract;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -10,7 +15,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,18 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.ContentProviderOperation;
-import android.content.ContentProviderResult;
-import android.content.OperationApplicationException;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.RemoteException;
-import android.provider.ContactsContract;
-import android.provider.ContactsContract.CommonDataKinds.Phone;
-import android.provider.ContactsContract.CommonDataKinds.StructuredName;
-import android.provider.ContactsContract.Contacts.Data;
-import android.provider.ContactsContract.RawContacts;
-
-import static android.provider.ContactsContract.CommonDataKinds.Phone.TYPE_WORK;
+import static com.CDV.util.util.Fill;
+import static com.CDV.util.util.Ajouter_contact;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -50,14 +44,23 @@ public class MainActivity extends ActionBarActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
-    private  String name;
-    private  String Lastname;
-    private  String Email;
-    private  String phone;
-    private  String Address;
-    private  String City;
-    private  String Postal;
+    private static String Name;
+    private static String LastName;
+    private static String Email;
+    private static String Phone;
+    private static String Address;
+    private static String City;
+    private static String Postal;
 
+    private final int CONTACT_PICKER_RESULT= 2017;
+
+    public static void setName(String Name1){Name = Name1;}
+    public static void setLastName(String LastName1){LastName = LastName1;}
+    public static void setEmail(String Email1){Email = Email1;}
+    public static void setPhone(String Phone1){Phone = Phone1;}
+    public static void setAddress(String Address1){Address = Address1;}
+    public static void setCity(String City1){City = City1;}
+    public static void setPostal(String Postal1){Postal = Postal1;}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +81,7 @@ public class MainActivity extends ActionBarActivity {
 
         listSliding.add(new ItemSlideMenu(R.drawable.contact, "See contact"));
         listSliding.add(new ItemSlideMenu(R.drawable.add, "Add Contact"));
-        listSliding.add(new ItemSlideMenu(R.drawable.add, "Profil"));
+        listSliding.add(new ItemSlideMenu(R.drawable.contact, "Profil"));
 
         adapter = new SlidingMenuAdapter(this, listSliding);
         listViewSliding.setAdapter(adapter);
@@ -87,14 +90,14 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        setTitle(listSliding.get(2).getTitle());
+        setTitle(listSliding.get(0).getTitle());
 
-        listViewSliding.setItemChecked(2, true);
+        listViewSliding.setItemChecked(0, true);
 
         drawerLayout.closeDrawer(listViewSliding);
 
 
-        replaceFragment(2);
+        replaceFragment(0);
 
         listViewSliding.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -147,20 +150,19 @@ public class MainActivity extends ActionBarActivity {
 
 
     private void replaceFragment(int pos)  {
+       Bundle bundl = new Bundle();
+        bundl.putInt("pos", pos);
         android.support.v4.app.Fragment fragment = null;
         switch (pos) {
             case 0:
                 fragment = new GestionContactFragment();
+                fragment.setArguments(bundl);
+
                 break;
             case 1:
-                IntentIntegrator integrator = new IntentIntegrator(this);
-                integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-                integrator.setPrompt("Scan");
-                integrator.setCameraId(0);
-                integrator.setBeepEnabled(false);
-                integrator.setBarcodeImageEnabled(false);
-                integrator.initiateScan();
-                //fragment = new GestionContactFragment();
+                fragment = new GestionContactFragment();
+                fragment.setArguments(bundl);
+
                 break;
             case 2:
                 fragment = new ProfilFragment();
@@ -179,144 +181,8 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result= IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
-        Log.i("info", "OK1!");
-        if(result!=null){
-            if(result.getContents()==null){
-                Log.i("info", "OK2!");
-            } else {
-                String c = result.getContents();
-                String Tc[] = c.split(";");
-
-                if (Tc.length == 7) {
-                    name = Tc[0];
-                    Lastname = Tc[1];
-                    Email = Tc[2];
-                    phone = Tc[3];
-                    Address = Tc[4];
-                    City = Tc[5];
-                    Postal = Tc[6];
-
-
-                    ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
-                    int rawContactInsertIndex = ops.size();
-
-                    ops.add(ContentProviderOperation.newInsert(RawContacts.CONTENT_URI)
-                            .withValue(RawContacts.ACCOUNT_TYPE, null)
-                            .withValue(RawContacts.ACCOUNT_NAME, null).build());
-
-                    //Phone Number
-                    ops.add(ContentProviderOperation
-                            .newInsert(ContactsContract.Data.CONTENT_URI)
-                            .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID,
-                                    rawContactInsertIndex)
-                            .withValue(Data.MIMETYPE, Phone.CONTENT_ITEM_TYPE)
-                            .withValue(Phone.NUMBER, phone)
-                            .withValue(Data.MIMETYPE, Phone.CONTENT_ITEM_TYPE)
-                            .withValue(Phone.TYPE, TYPE_WORK).build());
-
-                    //Display name/Contact name
-                    ops.add(ContentProviderOperation
-                            .newInsert(ContactsContract.Data.CONTENT_URI)
-                            .withValueBackReference(Data.RAW_CONTACT_ID,
-                                    rawContactInsertIndex)
-                            .withValue(Data.MIMETYPE, StructuredName.CONTENT_ITEM_TYPE)
-                            .withValue(StructuredName.DISPLAY_NAME, Lastname+" "+name)
-                            .build());
-                    //Email details
-                    ops.add(ContentProviderOperation
-                            .newInsert(ContactsContract.Data.CONTENT_URI)
-                            .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID,
-                                    rawContactInsertIndex)
-                            .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
-                            .withValue(ContactsContract.CommonDataKinds.Email.DATA, Email)
-                            .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
-                            .withValue(ContactsContract.CommonDataKinds.Email.TYPE, "2").build());
-
-
-                    //Postal Address
-
-                    ops.add(ContentProviderOperation
-                            .newInsert(ContactsContract.Data.CONTENT_URI)
-                            .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID,
-                                    rawContactInsertIndex)
-                            /*.withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
-                            .withValue(ContactsContract.CommonDataKinds.StructuredPostal.POBOX, "Postbox")*/
-
-                            .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
-                            .withValue(ContactsContract.CommonDataKinds.StructuredPostal.STREET, Address)
-
-                            .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
-                            .withValue(ContactsContract.CommonDataKinds.StructuredPostal.CITY, City)
-
-                            /*.withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
-                            .withValue(ContactsContract.CommonDataKinds.StructuredPostal.REGION, "region")*/
-
-                            .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
-                            .withValue(ContactsContract.CommonDataKinds.StructuredPostal.POSTCODE, Postal)
-
-                            /*.withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
-                            .withValue(ContactsContract.CommonDataKinds.StructuredPostal.COUNTRY, "country")*/
-
-                            .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
-                            .withValue(ContactsContract.CommonDataKinds.StructuredPostal.TYPE, "2")
-
-
-                            .build());
-
-
-                    /*//Organization details
-                    ops.add(ContentProviderOperation
-                            .newInsert(ContactsContract.Data.CONTENT_URI)
-                            .withValueBackReference(Data.RAW_CONTACT_ID,
-                                    rawContactInsertIndex)
-                            .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
-                            .withValue(ContactsContract.CommonDataKinds.Organization.COMPANY, "Devindia")
-                            .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
-                            .withValue(ContactsContract.CommonDataKinds.Organization.TITLE, "Developer")
-                            .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE)
-                            .withValue(ContactsContract.CommonDataKinds.Organization.TYPE, "2")
-
-                            .build());
-                    //IM details
-                    ops.add(ContentProviderOperation
-                            .newInsert(ContactsContract.Data.CONTENT_URI)
-                            .withValueBackReference(Data.RAW_CONTACT_ID,
-                                    rawContactInsertIndex)
-                            .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE)
-                            .withValue(ContactsContract.CommonDataKinds.Im.DATA, "ImName")
-                            .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE)
-                            .withValue(ContactsContract.CommonDataKinds.Im.DATA5, "2")
-
-
-                            .build());*/
-                    try {
-                        ContentProviderResult[] res = getContentResolver().applyBatch(
-                                ContactsContract.AUTHORITY, ops);
-                    } catch (RemoteException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (OperationApplicationException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-
-                    Toast.makeText(this, "Contact ajouté", Toast.LENGTH_SHORT).show();
-
-                    Log.i("info", "OK3!");
-                    startActivity(new Intent(this, MainActivity.class));
-                }
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-            startActivity(new Intent(this, MainActivity.class));
-        }
-
-    }
-
-    public void scanner(View view){
+    //methode pour lancer le scanner de qrcode
+    public  void scanner(View view){
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
         integrator.setPrompt("Scan");
@@ -328,4 +194,52 @@ public class MainActivity extends ActionBarActivity {
 
     public void send(View view){
     }
+
+    public void contact(View view){
+        Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
+                ContactsContract.Contacts.CONTENT_URI);
+        startActivityForResult(contactPickerIntent, CONTACT_PICKER_RESULT);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK)
+            return;
+        if (requestCode == CONTACT_PICKER_RESULT && resultCode == RESULT_OK) {
+            Uri contactUri = data.getData();
+            Cursor cursor = getContentResolver().query(contactUri, null, null, null, null);
+            cursor.moveToFirst();
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
+            Log.d("phone number", name);
+
+        } else {
+            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+
+            if (result != null) {
+
+                if (result.getContents() == null) {
+                } else {
+                    String c = result.getContents();
+                    Fill(c);
+
+                    ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
+                    int rawContactInsertIndex = ops.size();
+
+                    Ajouter_contact(ops, rawContactInsertIndex, this, Name, LastName, Phone, Email, Address, Postal, City);
+
+                    Toast.makeText(this, "Contact ajouté", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(this, MainActivity.class));
+                }
+
+            } else {
+                super.onActivityResult(requestCode, resultCode, data);
+                startActivity(new Intent(this, MainActivity.class));
+
+            }
+
+        }
+    }
+
+
+
 }

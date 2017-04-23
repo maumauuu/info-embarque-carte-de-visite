@@ -1,11 +1,13 @@
 package com.CDV;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.qrcode.QRCodeWriter;
 
 public class Code {
@@ -40,4 +42,7 @@ public class Code {
 
         return bmp;
     }
+
+
+
 }
