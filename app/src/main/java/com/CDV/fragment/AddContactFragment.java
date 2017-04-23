@@ -1,8 +1,10 @@
 package com.CDV.fragment;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,20 @@ import com.CDV.R;
 import com.CDV.dataBase.CarteDataSource;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+import android.content.ContentProviderOperation;
+import android.content.ContentProviderResult;
+import android.content.OperationApplicationException;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.RemoteException;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.provider.ContactsContract.CommonDataKinds.StructuredName;
+import android.provider.ContactsContract.Contacts.Data;
+import android.provider.ContactsContract.RawContacts;
+
+import java.util.ArrayList;
 
 
 public class AddContactFragment extends Fragment {
@@ -47,7 +63,110 @@ public class AddContactFragment extends Fragment {
         City = Tc[5] ;
         Postal = Tc[6];
 
-        datasource.createCarte(name, Lastname,Email,phone,Address,City,Postal);
+        /*ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
+        int rawContactInsertIndex = ops.size();
+
+        ops.add(ContentProviderOperation.newInsert(RawContacts.CONTENT_URI)
+                .withValue(RawContacts.ACCOUNT_TYPE, null)
+                .withValue(RawContacts.ACCOUNT_NAME, null).build());
+
+        //Phone Number
+        ops.add(ContentProviderOperation
+                .newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID,
+                        rawContactInsertIndex)
+                .withValue(Data.MIMETYPE, Phone.CONTENT_ITEM_TYPE)
+                .withValue(Phone.NUMBER, "9X-XXXXXXXXX")
+                .withValue(Data.MIMETYPE, Phone.CONTENT_ITEM_TYPE)
+                .withValue(Phone.TYPE, "1").build());
+
+        //Display name/Contact name
+        ops.add(ContentProviderOperation
+                .newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(Data.RAW_CONTACT_ID,
+                        rawContactInsertIndex)
+                .withValue(Data.MIMETYPE, StructuredName.CONTENT_ITEM_TYPE)
+                .withValue(StructuredName.DISPLAY_NAME, "Mike Sullivan")
+                .build());
+        //Email details
+        ops.add(ContentProviderOperation
+                .newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID,
+                        rawContactInsertIndex)
+                .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.Email.DATA, "abc@aho.com")
+                .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.Email.TYPE, "2").build());
+
+
+        //Postal Address
+
+        ops.add(ContentProviderOperation
+                .newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID,
+                        rawContactInsertIndex)
+                .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE )
+                .withValue(ContactsContract.CommonDataKinds.StructuredPostal.POBOX, "Postbox")
+
+                .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE )
+                .withValue(ContactsContract.CommonDataKinds.StructuredPostal.STREET, "street")
+
+                .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE )
+                .withValue(ContactsContract.CommonDataKinds.StructuredPostal.CITY, "city")
+
+                .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE )
+                .withValue(ContactsContract.CommonDataKinds.StructuredPostal.REGION, "region")
+
+                .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE )
+                .withValue(ContactsContract.CommonDataKinds.StructuredPostal.POSTCODE, "postcode")
+
+                .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE )
+                .withValue(ContactsContract.CommonDataKinds.StructuredPostal.COUNTRY, "country")
+
+                .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE )
+                .withValue(ContactsContract.CommonDataKinds.StructuredPostal.TYPE, "3")
+
+
+                .build());
+
+
+        //Organization details
+        ops.add(ContentProviderOperation
+                .newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(Data.RAW_CONTACT_ID,
+                        rawContactInsertIndex)
+                .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE )
+                .withValue(ContactsContract.CommonDataKinds.Organization.COMPANY, "Devindia")
+                .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE )
+                .withValue(ContactsContract.CommonDataKinds.Organization.TITLE, "Developer")
+                .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.Organization.CONTENT_ITEM_TYPE )
+                .withValue(ContactsContract.CommonDataKinds.Organization.TYPE, "0")
+
+                .build());
+        //IM details
+        ops.add(ContentProviderOperation
+                .newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(Data.RAW_CONTACT_ID,
+                        rawContactInsertIndex)
+                .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.Im.DATA, "ImName")
+                .withValue(Data.MIMETYPE, ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE )
+                .withValue(ContactsContract.CommonDataKinds.Im.DATA5, "2")
+
+
+                .build());
+        try {
+            ContentProviderResult[] res = getActivity().getContentResolver().applyBatch(
+                    ContactsContract.AUTHORITY, ops);
+        } catch (RemoteException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (OperationApplicationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        Log.i("info", "OK!");*/
 
 
     }
@@ -65,12 +184,14 @@ public class AddContactFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result= IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+        Log.i("info", "OK1!");
         if(result!=null){
             if(result.getContents()==null){
-
+                Log.i("info", "OK2!");
             } else{
                 Toast.makeText(getActivity(), "Contact ajouté", Toast.LENGTH_SHORT).show();
                 Fill(result);
+                Log.i("info", "OK3!");
                 startActivity(new Intent(getActivity(), MainActivity.class));
             }
         } else {

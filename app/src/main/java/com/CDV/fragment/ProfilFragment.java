@@ -65,8 +65,8 @@ public class ProfilFragment extends Fragment {
             editprenom.setText(carte.getFullname());
             editemail.setText(carte.getEmail());
             editnumero.setText(carte.getNumero());
-            editadresse.setText(carte.getAddress()+", ");
-            editpostal.setText(carte.getPostal()+", ");
+            editadresse.setText(carte.getAddress());
+            editpostal.setText(carte.getPostal());
             editcity.setText(carte.getCity());
         }
 
