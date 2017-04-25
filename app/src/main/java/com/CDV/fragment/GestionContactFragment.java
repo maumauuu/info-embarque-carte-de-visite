@@ -18,7 +18,6 @@ public class GestionContactFragment extends Fragment {
     private ViewPager viewPager;
     private int position;
 
-
     public GestionContactFragment() {
 
     }

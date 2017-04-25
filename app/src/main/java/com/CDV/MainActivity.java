@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = new ProfilFragment();
         fragmentTransaction.replace(R.id.content_frame, fragment);
         fragmentTransaction.commit();
+        setTitle("VisitCard");
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -97,17 +98,18 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
 
         if (id == R.id.nav_camera) {
-            bundl.putInt("pos", id);
+            bundl.putInt("pos", 0);
 
             fragment = new GestionContactFragment();
             fragment.setArguments(bundl);
         } else if (id == R.id.nav_gallery) {
-            bundl.putInt("pos", id);
+            bundl.putInt("pos", 1);
 
             fragment = new GestionContactFragment();
             fragment.setArguments(bundl);
 
         } else if (id == R.id.nav_slideshow) {
+
             fragment = new ProfilFragment();
         }
 
