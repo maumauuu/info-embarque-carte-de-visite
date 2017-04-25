@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:textColor="#CECECE"
+            android:padding="5dp"
+            android:background="@android:color/transparent"
+            android:textSize="50dp"
+            android:textStyle="bold"
+            android:id="@+id/Name"
+            android:layout_above="@+id/editnumero"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="21dp"/>
+        />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#FFFFFF">
+    </View>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:textColor="#CECECE"
+        android:padding="5dp"
+        android:textSize="20dp"
+        android:ems="10"
+        android:background="@android:color/transparent"
+        android:id="@+id/email"
+        android:layout_above="@+id/editcity"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="34dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:textColor="#CECECE"
+        android:textSize="20dp"
+        android:padding="10dp"
+        android:background="@android:color/transparent"
+        android:ems="15"
+        android:id="@+id/phone"
+        android:layout_above="@+id/editemail"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="19dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:inputType="textPostalAddress"
+            android:textStyle="italic"
+            android:textColor="#CECECE"
+            android:background="@android:color/transparent"
+            android:ems="15"
+            android:padding="10dp"
+            android:textSize="25dp"
+            android:id="@+id/adresse"
+            android:layout_alignBaseline="@+id/editpostal"
+            android:layout_alignBottom="@+id/editpostal"
+            android:layout_toStartOf="@+id/editpostal"
+            android:layout_width="0dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+</LinearLayout>
