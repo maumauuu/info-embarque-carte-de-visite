@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.CDV.CodeActivity;
-import com.CDV.MainActivity;
 import com.CDV.R;
 import com.CDV.dataBase.Carte;
 import com.CDV.dataBase.CarteDataSource;

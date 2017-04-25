@@ -1,48 +1,40 @@
 package com.CDV;
 
-import android.app.Activity;
-import android.content.ComponentName;
+import android.content.ContentProviderOperation;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.provider.ContactsContract;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.CDV.adapter.SlidingMenuAdapter;
-import com.CDV.dataBase.CarteDataSource;
 import com.CDV.fragment.GestionContactFragment;
 import com.CDV.fragment.ProfilFragment;
-import com.CDV.model.ItemSlideMenu;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import android.content.ContentProviderOperation;
-import static com.CDV.util.util.Fill;
 import static com.CDV.util.util.Ajouter_contact;
+import static com.CDV.util.util.Fill;
 
-public class MainActivity extends ActionBarActivity {
-
-
-    private CarteDataSource datasource;
-
-    private List<ItemSlideMenu> listSliding;
-    private SlidingMenuAdapter adapter;
-    private ListView listViewSliding;
-    private DrawerLayout drawerLayout;
-    private ActionBarDrawerToggle actionBarDrawerToggle;
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private static String Name;
     private static String LastName;
@@ -66,119 +58,71 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment fragment = new ProfilFragment();
+        fragmentTransaction.replace(R.id.content_frame, fragment);
+        fragmentTransaction.commit();
 
-
-        datasource = new CarteDataSource(this);
-        datasource.open();
-
-
-        listViewSliding = (ListView) findViewById(R.id.lv_sliding_menu);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        listSliding = new ArrayList<>();
-
-        listSliding.add(new ItemSlideMenu(R.drawable.contact, "See contact"));
-        listSliding.add(new ItemSlideMenu(R.drawable.add, "Add Contact"));
-        listSliding.add(new ItemSlideMenu(R.drawable.contact, "Profil"));
-
-        adapter = new SlidingMenuAdapter(this, listSliding);
-        listViewSliding.setAdapter(adapter);
-
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-        setTitle(listSliding.get(0).getTitle());
-
-        listViewSliding.setItemChecked(0, true);
-
-        drawerLayout.closeDrawer(listViewSliding);
-
-
-        replaceFragment(0);
-
-        listViewSliding.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                setTitle(listSliding.get(position).getTitle());
-
-                listViewSliding.setItemChecked(position, true);
-
-                replaceFragment(position);
-
-                drawerLayout.closeDrawer(listViewSliding);
-            }
-        });
-
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                invalidateOptionsMenu();
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-                invalidateOptionsMenu();
-            }
-        };
-
-        drawerLayout.setDrawerListener(actionBarDrawerToggle);
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if(actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        actionBarDrawerToggle.syncState();
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
 
+        Bundle bundl = new Bundle();
+        Fragment fragment = null;
 
-    private void replaceFragment(int pos)  {
-       Bundle bundl = new Bundle();
-        bundl.putInt("pos", pos);
-        android.support.v4.app.Fragment fragment = null;
-        switch (pos) {
-            case 0:
-                fragment = new GestionContactFragment();
-                fragment.setArguments(bundl);
+        if (id == R.id.nav_camera) {
+            bundl.putInt("pos", id);
 
-                break;
-            case 1:
-                fragment = new GestionContactFragment();
-                fragment.setArguments(bundl);
+            fragment = new GestionContactFragment();
+            fragment.setArguments(bundl);
+        } else if (id == R.id.nav_gallery) {
+            bundl.putInt("pos", id);
 
-                break;
-            case 2:
-                fragment = new ProfilFragment();
-                break;
-            default:
-                fragment = new ProfilFragment();
-                break;
+            fragment = new GestionContactFragment();
+            fragment.setArguments(bundl);
+
+        } else if (id == R.id.nav_slideshow) {
+            fragment = new ProfilFragment();
         }
+
 
         if(null!=fragment) {
-            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.main_content, fragment);
+            transaction.replace(R.id.content_frame, fragment);
             transaction.addToBackStack(null);
             transaction.commit();
         }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     //methode pour lancer le scanner de qrcode
@@ -240,7 +184,4 @@ public class MainActivity extends ActionBarActivity {
 
         }
     }
-
-
-
 }
