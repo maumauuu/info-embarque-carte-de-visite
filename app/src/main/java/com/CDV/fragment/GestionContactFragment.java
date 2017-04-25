@@ -29,7 +29,9 @@ public class GestionContactFragment extends Fragment {
         View view = inflater.inflate(R.layout.gestion_contact, container, false);
         tabLayout = (TabLayout)view.findViewById(R.id.tabs);
         viewPager = (ViewPager)view.findViewById(R.id.view_pager);
-        viewPager.setAdapter(new CustomFragmentPageAdapter(getChildFragmentManager()));;
+        CustomFragmentPageAdapter custom = new CustomFragmentPageAdapter(getChildFragmentManager());
+        getActivity().setTitle(custom.getPageTitle(position));
+        viewPager.setAdapter(custom);;
         tabLayout.setTabTextColors(Color.LTGRAY,Color.WHITE);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setCurrentItem(position);

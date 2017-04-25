@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = new ProfilFragment();
         fragmentTransaction.replace(R.id.content_frame, fragment);
         fragmentTransaction.commit();
-        setTitle("VisitCard");
+        setTitle("Profil");
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_slideshow) {
 
+            setTitle("Profil");
             fragment = new ProfilFragment();
         }
 
