@@ -4,11 +4,14 @@ package com.CDV.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.CDV.CodeActivity;
 import com.CDV.R;
@@ -28,6 +31,9 @@ public class ProfilFragment extends Fragment {
     private EditText editcity;
     private LinearLayout layoutgenerer;
     private LinearLayout layoutregister;
+    private LinearLayout layoutSend;
+
+    private String msg;
 
     private CarteDataSource dataSource;
 
@@ -53,6 +59,7 @@ public class ProfilFragment extends Fragment {
 
         layoutgenerer = (LinearLayout) view.findViewById(R.id.layoutgenerer);
         layoutregister = (LinearLayout) view.findViewById(R.id.layoutregister);
+        layoutSend = (LinearLayout) view.findViewById(R.id.Send);
 
         dataSource = new CarteDataSource(getActivity());
 
@@ -92,6 +99,17 @@ public class ProfilFragment extends Fragment {
                         editnumero.getText().toString(), editadresse.getText().toString(), editpostal.getText().toString(), editcity.getText().toString());
 
                 dataSource.close();
+            }
+        });
+
+        layoutSend.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                msg ="CDV" +"\n"+editprenom.getText().toString() + " "+editname.getText().toString()+"\n " +
+                        editemail.getText().toString()+"\n " +editadresse.getText().toString() +" "+
+                      editpostal.getText().toString() +" "+ editcity.getText().toString();
+                SmsManager.getDefault().sendTextMessage(editnumero.toString(), null, msg, null, null);
+                Toast.makeText(getActivity(), "SMS envoyé", Toast.LENGTH_SHORT).show();
             }
         });
 

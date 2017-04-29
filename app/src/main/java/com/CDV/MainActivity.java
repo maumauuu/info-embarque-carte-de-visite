@@ -13,6 +13,7 @@ import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -45,6 +46,9 @@ public class MainActivity extends AppCompatActivity
     private String Address;
     private String City;
     private String Postal;
+
+    private String num="5554";
+    private String msg;
 
     private Intent carte_contact;
     private final int CONTACT_PICKER_RESULT= 2017;
@@ -142,14 +146,15 @@ public class MainActivity extends AppCompatActivity
         integrator.initiateScan();
     }
 
-    public void send(View view){
-    }
+
 
     public void contact(View view){
         Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
                 ContactsContract.Contacts.CONTENT_URI);
         startActivityForResult(contactPickerIntent, CONTACT_PICKER_RESULT);
     }
+
+
 
 
     public void getContact(Cursor cursor){
@@ -163,7 +168,7 @@ public class MainActivity extends AppCompatActivity
         String id = cursor.getInt(cursor.getColumnIndexOrThrow(ContactsContract.PhoneLookup._ID)) + "";
 
         try {
-            //recupere le teldu contact
+            //recupere le tel du contact
             JSONObject phone = getContactPhones(id);
             //3: telephone travail
             str_phone = phone.getString("3");
