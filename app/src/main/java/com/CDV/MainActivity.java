@@ -202,6 +202,7 @@ public class MainActivity extends AppCompatActivity
             if (result != null) {
 
                 if (result.getContents() == null) {
+
                 } else {
                     String c = result.getContents();
                     Fill(c);

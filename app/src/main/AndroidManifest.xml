@@ -37,6 +37,9 @@
         <activity android:name=".CarteContact"
             android:parentActivityName=".MainActivity">
        </activity>
+        <activity android:name=".PhoneNumber"
+            android:parentActivityName=".MainActivity">
+        </activity>
     </application>
 
 </manifest>

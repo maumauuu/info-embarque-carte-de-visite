@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.telephony.SmsManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.CDV.CodeActivity;
+import com.CDV.PhoneNumber;
 import com.CDV.R;
 import com.CDV.dataBase.Carte;
 import com.CDV.dataBase.CarteDataSource;
@@ -105,11 +105,12 @@ public class ProfilFragment extends Fragment {
         layoutSend.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(getActivity(), PhoneNumber.class);
                 msg ="CDV" +"\n"+editprenom.getText().toString() + " "+editname.getText().toString()+"\n " +
                         editemail.getText().toString()+"\n " +editadresse.getText().toString() +" "+
                       editpostal.getText().toString() +" "+ editcity.getText().toString();
-                SmsManager.getDefault().sendTextMessage(editnumero.toString(), null, msg, null, null);
-                Toast.makeText(getActivity(), "SMS envoyé", Toast.LENGTH_SHORT).show();
+                i.putExtra("msg",msg);
+                startActivity(i);
             }
         });
 
