@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.OperationApplicationException;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.provider.ContactsContract;
+import android.provider.Telephony;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -47,8 +51,10 @@ public class MainActivity extends AppCompatActivity
     private String City;
     private String Postal;
 
-    private String num="5554";
+
+    private String expectedPrefix = "CDV";
     private String msg;
+    private String num;
 
     private Intent carte_contact;
     private final int CONTACT_PICKER_RESULT= 2017;
@@ -83,7 +89,30 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //Gestion de la reception des sms
+        MyReceiver receiver = new MyReceiver(this);
+        IntentFilter filter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
+        registerReceiver(receiver, filter);
+
+        try {
+            ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+            Bundle bundle = ai.metaData;
+            if (bundle != null) {
+                int from = bundle.getInt("From");
+            } else {
+                Log.d("MainActivity", "Bundle null for " + getPackageName());
+            }
+        } catch (PackageManager.NameNotFoundException ex) {
+            Log.e("MainActivity", ex.toString());
+
+        }
     }
+
+    String getExpectedPrefix() {
+        return expectedPrefix;
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -182,13 +211,30 @@ public class MainActivity extends AppCompatActivity
         carte_contact.putExtra("phone",str_phone);
         carte_contact.putExtra("email",email);
         carte_contact.putExtra("address",address);
+        carte_contact.putExtra("origin","SEE");
     }
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != RESULT_OK)
-            return;
+
+        if (requestCode == 65) {
+            Log.d("read", "pause");
+            if (resultCode == 0) {
+                //Si skip on ne fait  rien
+
+            }
+
+            if (resultCode == 1) {
+                Log.d("read", "llll");
+                carte_contact = new Intent(this, CarteContact.class);
+                carte_contact.putExtra("msg",msg);
+                carte_contact.putExtra("origin","SMS");
+                carte_contact.putExtra("phone",num);
+                startActivity(carte_contact);
+            }
+        }
+
         //Code pour recuperer les infos du contact choisi
         if (requestCode == CONTACT_PICKER_RESULT && resultCode == RESULT_OK) {
             Uri contactUri = data.getData();
@@ -216,9 +262,6 @@ public class MainActivity extends AppCompatActivity
                     startActivity(new Intent(this, MainActivity.class));
                 }
 
-            } else {
-                super.onActivityResult(requestCode, resultCode, data);
-                startActivity(new Intent(this, MainActivity.class));
 
             }
 
@@ -372,6 +415,16 @@ public class MainActivity extends AppCompatActivity
         addressCur.close();
         return  address;
 
+    }
+
+
+
+
+    public void sms(String from, String body) {
+        Intent i = new Intent(this,Pause.class);
+        msg = body;
+        num = from;
+        startActivityForResult(i,65);
     }
 
 }
