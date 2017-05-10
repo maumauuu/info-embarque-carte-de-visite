@@ -18,7 +18,7 @@ public class CustomFragmentPageAdapter extends FragmentPagerAdapter {
             case 0:
                 return new SeeContactFragment();
             case 1:
-                return new AddContactFragment();
+                return new ProfilFragment();
         }
         return null;
     }
@@ -32,7 +32,7 @@ public class CustomFragmentPageAdapter extends FragmentPagerAdapter {
             case 0:
                 return "See contacts";
             case 1:
-                return "Add contact";
+                return "Profil";
         }
         return null;
     }

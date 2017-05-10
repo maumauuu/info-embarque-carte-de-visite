@@ -1,20 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_contact"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
     tools:context=".fragment.SeeContactFragment">
 
     <Button
         android:id="@+id/Scan"
+        android:layout_marginLeft="50sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:text="Choose Contact"
         android:onClick="contact"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="23dp" />
 
-</RelativeLayout>
+    <LinearLayout
+        android:id="@+id/carte_other"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/fond_card"
+        android:layout_weight="2"
+        android:layout_margin="15dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:textColor="#CECECE"
+                android:text="Name"
+                android:padding="5dp"
+                android:background="@android:color/transparent"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:id="@+id/textname"
+                android:layout_above="@+id/textnumero"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="21dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView2" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#FFFFFF">
+        </View>
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:textColor="#CECECE"
+            android:text="Email"
+            android:padding="5dp"
+            android:textSize="13dp"
+            android:ems="10"
+            android:background="@android:color/transparent"
+            android:id="@+id/textemail"
+            android:layout_above="@+id/textcity"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="34dp" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:textColor="#CECECE"
+            android:text="Numero"
+            android:textSize="15dp"
+            android:padding="10dp"
+            android:background="@android:color/transparent"
+            android:ems="15"
+            android:id="@+id/textnumero"
+            android:layout_above="@+id/textemail"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="19dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:inputType="textPostalAddress"
+                android:text="Address"
+                android:textStyle="italic"
+                android:textColor="#CECECE"
+                android:background="@android:color/transparent"
+                android:ems="15"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:id="@+id/textadresse"
+                android:layout_alignBaseline="@+id/textpostal"
+                android:layout_alignBottom="@+id/editpostal"
+                android:layout_toStartOf="@+id/editpostal"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

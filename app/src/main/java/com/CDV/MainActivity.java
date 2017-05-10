@@ -27,6 +27,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.CDV.fragment.GestionContactFragment;
@@ -40,6 +42,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import static android.provider.ContactsContract.CommonDataKinds.Phone.TYPE_WORK;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -50,6 +53,11 @@ public class MainActivity extends AppCompatActivity
     private String Address;
     private String City;
     private String Postal;
+
+    private TextView textName;
+    private TextView textNumero;
+    private TextView textEmail;
+    private TextView textAdress;
 
 
     private String expectedPrefix = "CDV";
@@ -74,6 +82,8 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -82,10 +92,13 @@ public class MainActivity extends AppCompatActivity
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Fragment fragment = new ProfilFragment();
+        Bundle bundl = new Bundle();
+        bundl.putInt("pos", 1);
+        Fragment fragment = new GestionContactFragment();
+        fragment.setArguments(bundl);
         fragmentTransaction.replace(R.id.content_frame, fragment);
         fragmentTransaction.commit();
-        setTitle("Profil");
+        setTitle("VisitCard");
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -144,10 +157,6 @@ public class MainActivity extends AppCompatActivity
             fragment = new GestionContactFragment();
             fragment.setArguments(bundl);
 
-        } else if (id == R.id.nav_slideshow) {
-
-            setTitle("Profil");
-            fragment = new ProfilFragment();
         }
 
 
@@ -187,6 +196,10 @@ public class MainActivity extends AppCompatActivity
 
 
     public void getContact(Cursor cursor){
+        textName = (TextView) findViewById(R.id.textname);
+        textNumero = (TextView) findViewById(R.id.textnumero);
+        textEmail = (TextView) findViewById(R.id.textemail);
+        textAdress = (TextView) findViewById(R.id.textadresse);
         String str_phone="";
         String email= "";
         String address="";
@@ -195,23 +208,22 @@ public class MainActivity extends AppCompatActivity
         String name = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
         //recupere l'indice des numeros de tel
         String id = cursor.getInt(cursor.getColumnIndexOrThrow(ContactsContract.PhoneLookup._ID)) + "";
+        textName.setText(name);
 
         try {
             //recupere le tel du contact
             JSONObject phone = getContactPhones(id);
             //3: telephone travail
             str_phone = phone.getString("3");
+            textNumero.setText(str_phone);
             email = getContactEmail(id);
+            textEmail.setText(email);
             address = getContactAddress(id);
+            textAdress.setText(address);
         }catch (Exception e) {
             Log.v("ContactPicker", "Parsing contact failed: " + e.getMessage());
         }
-        carte_contact = new Intent(this, CarteContact.class);
-        carte_contact.putExtra("name",name);
-        carte_contact.putExtra("phone",str_phone);
-        carte_contact.putExtra("email",email);
-        carte_contact.putExtra("address",address);
-        carte_contact.putExtra("origin","SEE");
+
     }
 
 
@@ -239,8 +251,10 @@ public class MainActivity extends AppCompatActivity
         if (requestCode == CONTACT_PICKER_RESULT && resultCode == RESULT_OK) {
             Uri contactUri = data.getData();
             Cursor cursor = getContentResolver().query(contactUri, null, null, null, null);
+            LinearLayout carteProfilOther = (LinearLayout)findViewById(R.id.carte_other);
+            carteProfilOther.setVisibility(LinearLayout.VISIBLE);
             getContact(cursor);
-            startActivity(carte_contact);
+            //startActivity(carte_contact);
 
         } else {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
