@@ -254,7 +254,6 @@ public class MainActivity extends AppCompatActivity
             LinearLayout carteProfilOther = (LinearLayout)findViewById(R.id.carte_other);
             carteProfilOther.setVisibility(LinearLayout.VISIBLE);
             getContact(cursor);
-            //startActivity(carte_contact);
 
         }
     }
@@ -326,9 +325,6 @@ public class MainActivity extends AppCompatActivity
         return  address;
 
     }
-
-
-
 
     public void sms(String from, String body) {
         Intent i = new Intent(this,Pause.class);

@@ -81,8 +81,7 @@ public class ProfilFragment extends Fragment {
         layoutgenerer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String data = editname.getText().toString()+";"+editprenom.getText().toString()+";"+editemail.getText().toString()+";"+
-                        editnumero.getText().toString()+";"+editadresse.getText().toString()+";"+editpostal.getText().toString()+";"+editcity.getText().toString();
+                String data =editnumero.getText().toString();
 
                 Intent intent = new Intent(getActivity(), CodeActivity.class);
                 intent.putExtra("data", data);

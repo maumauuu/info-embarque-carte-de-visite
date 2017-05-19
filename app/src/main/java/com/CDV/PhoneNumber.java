@@ -60,7 +60,6 @@ public class PhoneNumber extends AppCompatActivity {
             } else {
                 //on recupere lecontenu du qrcode
                 String c = result.getContents();
-                c = "5554";
                 num.setText(c);
             }
         } else {
