@@ -32,7 +32,6 @@
             android:name=".Pause"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.Transparent" />
-        <activity android:name=".ContactItemActivity" />
         <activity android:name=".CodeActivity" />
         <activity
             android:name=".MainActivity"
