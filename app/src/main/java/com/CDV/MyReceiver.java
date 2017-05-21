@@ -27,7 +27,7 @@ public class MyReceiver extends BroadcastReceiver {
             }
             String from = message.getOriginatingAddress();
             if (body == null ){
-                Log.d("MyReceiver:", "wrong nimber");
+                Log.d("MyReceiver:", "wrong number");
                 continue;
             }
             act.sms(from, body);

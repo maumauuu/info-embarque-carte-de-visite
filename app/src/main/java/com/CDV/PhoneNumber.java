@@ -37,6 +37,7 @@ public class PhoneNumber extends AppCompatActivity {
     public void Sendsms(View view){
         SmsManager.getDefault().sendTextMessage(num.getText().toString(), null, msg, null, null);
         Toast.makeText(this, "SMS envoyé", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this,MainActivity.class));
     }
 
     //Demarre le sanner de qrcode

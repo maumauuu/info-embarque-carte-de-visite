@@ -40,6 +40,7 @@ public class Pause extends Activity {
         if (button == Read) {
             this.setResult(1);
             this.finish();
+
         }
         if (button == Skip) {
             this.setResult(0);

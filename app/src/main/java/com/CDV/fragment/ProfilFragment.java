@@ -1,22 +1,25 @@
 package com.CDV.fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.CDV.CodeActivity;
-import com.CDV.PhoneNumber;
 import com.CDV.R;
 import com.CDV.dataBase.Carte;
 import com.CDV.dataBase.CarteDataSource;
+import com.CDV.util.Code;
 
 import java.util.List;
 
@@ -29,14 +32,27 @@ public class ProfilFragment extends Fragment {
     private EditText editadresse;
     private EditText editpostal;
     private EditText editcity;
+
+    //Layout des boutons
     private LinearLayout layoutgenerer;
-    private LinearLayout layoutregister;
+    private LinearLayout layoutcdv;
     private LinearLayout layoutSend;
 
-    private String msg;
+    //Layout qui change
+    private LinearLayout cdv;
+    private LinearLayout qr_code;
+    private LinearLayout send_number;
+
+    private ImageView image;
+    private Code code;
+
 
     private CarteDataSource dataSource;
 
+
+    private Button send;
+    private String msg;
+    private EditText send_num;
 
     public ProfilFragment() {
 
@@ -57,9 +73,19 @@ public class ProfilFragment extends Fragment {
         editpostal = (EditText) view.findViewById(R.id.editpostal);
         editcity = (EditText) view.findViewById(R.id.editcity);
 
+        //Les layouts boutons
         layoutgenerer = (LinearLayout) view.findViewById(R.id.layoutgenerer);
-        layoutregister = (LinearLayout) view.findViewById(R.id.layoutregister);
-        layoutSend = (LinearLayout) view.findViewById(R.id.Send);
+        layoutcdv = (LinearLayout) view.findViewById(R.id.layoutcdv);
+        layoutSend = (LinearLayout) view.findViewById(R.id.layoutSend);
+
+
+        //Les layouts a remplacer
+        cdv = (LinearLayout) view.findViewById(R.id.cdv);
+        qr_code = (LinearLayout) view.findViewById(R.id.qr_code);
+        send_number = (LinearLayout) view.findViewById(R.id.send_number);
+
+        send = (Button) view.findViewById(R.id.Send);
+        send_num = (EditText) view.findViewById(R.id.phone);
 
         dataSource = new CarteDataSource(getActivity());
 
@@ -78,43 +104,80 @@ public class ProfilFragment extends Fragment {
 
         dataSource.close();
 
-        layoutgenerer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String data =editnumero.getText().toString();
 
-                Intent intent = new Intent(getActivity(), CodeActivity.class);
-                intent.putExtra("data", data);
-                startActivity(intent);
+        setHasOptionsMenu(true);
+
+        layoutcdv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cdv.setVisibility(LinearLayout.VISIBLE);
+                qr_code.setVisibility(LinearLayout.INVISIBLE);
+                send_number.setVisibility(LinearLayout.INVISIBLE);
             }
         });
 
-        layoutregister.setOnClickListener(new View.OnClickListener() {
+
+        layoutgenerer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dataSource.open();
+                qr_code.setVisibility(LinearLayout.VISIBLE);
+                cdv.setVisibility(LinearLayout.INVISIBLE);
+                send_number.setVisibility(LinearLayout.INVISIBLE);
 
-                dataSource.createProfil(editname.getText().toString(), editprenom.getText().toString(), editemail.getText().toString(),
-                        editnumero.getText().toString(), editadresse.getText().toString(), editpostal.getText().toString(), editcity.getText().toString());
+                image = (ImageView) getActivity().findViewById(R.id.imageView);
+                String data =editnumero.getText().toString();
+                code = new Code(data);
+                image.setImageBitmap(code.dataToBitmap());
 
-                dataSource.close();
             }
         });
 
         layoutSend.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), PhoneNumber.class);
+
+                send_number.setVisibility(LinearLayout.VISIBLE);
+                cdv.setVisibility(LinearLayout.INVISIBLE);
+                qr_code.setVisibility(LinearLayout.INVISIBLE);
+
                 msg ="CDV" +"\n"+editprenom.getText().toString() + " "+editname.getText().toString()+"\n " +
                         editemail.getText().toString()+"\n " +editadresse.getText().toString() +" "+
-                      editpostal.getText().toString() +" "+ editcity.getText().toString();
-                i.putExtra("msg",msg);
-                startActivity(i);
+                        editpostal.getText().toString() +" "+ editcity.getText().toString();
+            }
+        });
+
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SmsManager.getDefault().sendTextMessage(send_num.getText().toString(), null, msg, null, null);
+                Toast.makeText(getActivity(), "SMS envoyé", Toast.LENGTH_SHORT).show();
             }
         });
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+
+
+
+    //gestion du menu de settings
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // pour sauvegarder le profil
+            case R.id.save_profil:
+                Log.d("save","save");
+                dataSource.open();
+
+                dataSource.createProfil(editname.getText().toString(), editprenom.getText().toString(), editemail.getText().toString(),
+                        editnumero.getText().toString(), editadresse.getText().toString(), editpostal.getText().toString(), editcity.getText().toString());
+
+                dataSource.close();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

@@ -12,7 +12,9 @@ import android.provider.Telephony;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.telephony.SmsManager;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,11 +23,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.CDV.fragment.GestionContactFragment;
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,6 +55,9 @@ public class MainActivity extends AppCompatActivity
     private String expectedPrefix = "CDV";
     private String msg;
     private String num;
+
+    //numero pour l'envoi du sms
+    private EditText send_num;
 
     private Intent carte_contact;
     private final int CONTACT_PICKER_RESULT= 2017;
@@ -107,11 +115,22 @@ public class MainActivity extends AppCompatActivity
             Log.e("MainActivity", ex.toString());
 
         }
+
+        send_num = (EditText)findViewById(R.id.phone);
     }
 
     String getExpectedPrefix() {
         return expectedPrefix;
     }
+
+
+    //creation du menu de settings
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
 
 
     @Override
@@ -172,7 +191,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
+    //methode pour choisir le contact dan la liste du tel
     public void contact(View view){
         Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
                 ContactsContract.Contacts.CONTENT_URI);
@@ -216,6 +235,20 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() == null) {
+
+            } else {
+                //on recupere lecontenu du qrcode
+                String c = result.getContents();
+                send_num.setText(c);
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+            startActivity(new Intent(this, MainActivity.class));
+        }
 
         if (requestCode == 65) {
             Log.d("read", "pause");
@@ -319,5 +352,17 @@ public class MainActivity extends AppCompatActivity
         num = from;
         startActivityForResult(i,65);
     }
+
+
+    //gestion du menu de settings
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
 
 }
