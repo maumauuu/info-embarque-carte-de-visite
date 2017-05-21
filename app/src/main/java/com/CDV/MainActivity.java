@@ -12,7 +12,6 @@ import android.provider.Telephony;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -26,7 +25,6 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.CDV.fragment.GestionContactFragment;
 import com.google.zxing.integration.android.IntentIntegrator;

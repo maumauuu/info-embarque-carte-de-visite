@@ -30,7 +30,6 @@ public class GestionContactFragment extends Fragment {
         tabLayout = (TabLayout)view.findViewById(R.id.tabs);
         viewPager = (ViewPager)view.findViewById(R.id.view_pager);
         CustomFragmentPageAdapter custom = new CustomFragmentPageAdapter(getChildFragmentManager());
-        //getActivity().setTitle(custom.getPageTitle(position));
         viewPager.setAdapter(custom);;
         tabLayout.setTabTextColors(Color.LTGRAY,Color.WHITE);
         tabLayout.setupWithViewPager(viewPager);

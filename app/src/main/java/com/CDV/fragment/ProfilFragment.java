@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -167,7 +166,6 @@ public class ProfilFragment extends Fragment {
         switch (item.getItemId()) {
             // pour sauvegarder le profil
             case R.id.save_profil:
-                Log.d("save","save");
                 dataSource.open();
 
                 dataSource.createProfil(editname.getText().toString(), editprenom.getText().toString(), editemail.getText().toString(),

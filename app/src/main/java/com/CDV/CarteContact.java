@@ -1,6 +1,5 @@
 package com.CDV;
 
-import android.app.ActionBar;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
 import android.content.Intent;
@@ -9,14 +8,9 @@ import android.os.Bundle;
 import android.os.RemoteException;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.SmsManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.CDV.R;
-
 import java.util.ArrayList;
 
 import static android.provider.ContactsContract.CommonDataKinds.Phone.TYPE_WORK;
@@ -25,7 +19,6 @@ import static android.provider.ContactsContract.CommonDataKinds.Phone.TYPE_WORK;
 public class CarteContact extends AppCompatActivity {
 
 
-    private String origin;
     private String name;
     private String mail;
     private String phone;
@@ -43,7 +36,6 @@ public class CarteContact extends AppCompatActivity {
         i = getIntent();
         msg = i.getStringExtra("msg");
         msgs = msg.split("\n");
-        Log.d("00000000000", msgs[0]);
         name= msgs[1];
         mail = msgs[2];
         adresse = msgs[3];
