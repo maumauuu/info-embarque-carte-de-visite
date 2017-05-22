@@ -27,11 +27,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.CDV.fragment.GestionContactFragment;
+import com.CDV.fragment.ProfilFragment;
+import com.CDV.util.RefreshEvent;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import de.greenrobot.event.EventBus;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -54,8 +58,8 @@ public class MainActivity extends AppCompatActivity
     private String msg;
     private String num;
 
-    //numero pour l'envoi du sms
-    private EditText send_num;
+    //nulero a transmettre au fragment apres le scan
+    private String c;
 
     private Intent carte_contact;
     private final int CONTACT_PICKER_RESULT= 2017;
@@ -74,8 +78,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -96,6 +98,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
         //Gestion de la reception des sms
         MyReceiver receiver = new MyReceiver(this);
         IntentFilter filter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
@@ -114,7 +117,7 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        send_num = (EditText)findViewById(R.id.phone);
+
     }
 
     String getExpectedPrefix() {
@@ -177,8 +180,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    //methode pour lancer le scanner de qrcode
-    public  void scanner(View view){
+
+
+    public void Scanner(View view){
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
         integrator.setPrompt("Scan");
@@ -187,7 +191,6 @@ public class MainActivity extends AppCompatActivity
         integrator.setBarcodeImageEnabled(false);
         integrator.initiateScan();
     }
-
 
     //methode pour choisir le contact dan la liste du tel
     public void contact(View view){
@@ -233,34 +236,18 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result != null) {
-            if (result.getContents() == null) {
-
-            } else {
-                //on recupere lecontenu du qrcode
-                String c = result.getContents();
-                send_num.setText(c);
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-            startActivity(new Intent(this, MainActivity.class));
-        }
-
         if (requestCode == 65) {
             Log.d("read", "pause");
             if (resultCode == 0) {
                 //Si skip on ne fait  rien
-
             }
 
             if (resultCode == 1) {
                 Log.d("read", "llll");
                 carte_contact = new Intent(this, CarteContact.class);
-                carte_contact.putExtra("msg",msg);
-                carte_contact.putExtra("origin","SMS");
-                carte_contact.putExtra("phone",num);
+                carte_contact.putExtra("msg", msg);
+                carte_contact.putExtra("origin", "SMS");
+                carte_contact.putExtra("phone", num);
                 startActivity(carte_contact);
             }
         }
@@ -269,11 +256,22 @@ public class MainActivity extends AppCompatActivity
         if (requestCode == CONTACT_PICKER_RESULT && resultCode == RESULT_OK) {
             Uri contactUri = data.getData();
             Cursor cursor = getContentResolver().query(contactUri, null, null, null, null);
-            LinearLayout carteProfilOther = (LinearLayout)findViewById(R.id.carte_other);
+            LinearLayout carteProfilOther = (LinearLayout) findViewById(R.id.carte_other);
             carteProfilOther.setVisibility(LinearLayout.VISIBLE);
             getContact(cursor);
+         }
+
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() == null) {
+
+            } else {
+                //on recupere lecontenu du qrcode
+                c = result.getContents();
+            }
 
         }
+
     }
 
     //methode pour remplir les champs
@@ -361,6 +359,13 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        EventBus.getDefault().post(new RefreshEvent(c));
+
+    }
 
 
 }

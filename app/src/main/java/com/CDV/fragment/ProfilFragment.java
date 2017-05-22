@@ -14,13 +14,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.CDV.R;
 import com.CDV.dataBase.Carte;
 import com.CDV.dataBase.CarteDataSource;
 import com.CDV.util.Code;
+import com.CDV.util.RefreshEvent;
 
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 public class ProfilFragment extends Fragment {
 
@@ -48,7 +50,7 @@ public class ProfilFragment extends Fragment {
 
     private CarteDataSource dataSource;
 
-
+    private Button scan;
     private Button send;
     private String msg;
     private EditText send_num;
@@ -83,8 +85,10 @@ public class ProfilFragment extends Fragment {
         qr_code = (LinearLayout) view.findViewById(R.id.qr_code);
         send_number = (LinearLayout) view.findViewById(R.id.send_number);
 
+        scan = (Button) view.findViewById(R.id.Scan);
         send = (Button) view.findViewById(R.id.Send);
         send_num = (EditText) view.findViewById(R.id.phone);
+
 
         dataSource = new CarteDataSource(getActivity());
 
@@ -153,6 +157,8 @@ public class ProfilFragment extends Fragment {
             }
         });
 
+
+
         // Inflate the layout for this fragment
         return view;
     }
@@ -177,5 +183,24 @@ public class ProfilFragment extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+
+    public void onEvent(RefreshEvent event){
+        send_num.setText(event.getC());
+    }
+
 
 }
