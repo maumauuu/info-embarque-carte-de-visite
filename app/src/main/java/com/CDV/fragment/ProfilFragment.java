@@ -178,6 +178,7 @@ public class ProfilFragment extends Fragment {
                         editnumero.getText().toString(), editadresse.getText().toString(), editpostal.getText().toString(), editcity.getText().toString());
 
                 dataSource.close();
+                Toast.makeText(getActivity(), "Profil Sauvegardé", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
