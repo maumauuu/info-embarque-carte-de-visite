@@ -17,8 +17,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.CDV.MainActivity;
 import com.CDV.R;
+import com.CDV.RoundedImageView;
 import com.CDV.dataBase.Carte;
 import com.CDV.dataBase.CarteDataSource;
 import com.CDV.dataBase.Image;
@@ -37,8 +42,6 @@ public class ProfilFragment extends Fragment {
     private EditText editprenom;
     private EditText editemail;
     private EditText editnumero;
-    private EditText editadresse;
-    private EditText editpostal;
     private EditText editcity;
 
     //Layout des boutons
@@ -47,7 +50,7 @@ public class ProfilFragment extends Fragment {
     private LinearLayout layoutSend;
 
     //Layout qui change
-    private LinearLayout cdv;
+    private RelativeLayout cdv;
     private LinearLayout qr_code;
     private LinearLayout send_number;
 
@@ -61,6 +64,9 @@ public class ProfilFragment extends Fragment {
     private Button send;
     private String msg;
     private EditText send_num;
+
+    private final int MODIFICATION = 10;
+
 
     public ProfilFragment() {
 
@@ -78,8 +84,6 @@ public class ProfilFragment extends Fragment {
         editprenom = (EditText) view.findViewById(R.id.editlastname);
         editemail = (EditText) view.findViewById(R.id.editemail);
         editnumero = (EditText) view.findViewById(R.id.editnumero);
-        editadresse = (EditText) view.findViewById(R.id.editadresse);
-        editpostal = (EditText) view.findViewById(R.id.editpostal);
         editcity = (EditText) view.findViewById(R.id.editcity);
 
         //Les layouts boutons
@@ -89,7 +93,7 @@ public class ProfilFragment extends Fragment {
 
 
         //Les layouts a remplacer
-        cdv = (LinearLayout) view.findViewById(R.id.cdv);
+        cdv = (RelativeLayout) view.findViewById(R.id.cdv);
         qr_code = (LinearLayout) view.findViewById(R.id.qr_code);
         send_number = (LinearLayout) view.findViewById(R.id.send_number);
 
@@ -108,9 +112,7 @@ public class ProfilFragment extends Fragment {
             editprenom.setText(carte.getFullname());
             editemail.setText(carte.getEmail());
             editnumero.setText(carte.getNumero());
-            editadresse.setText(carte.getAddress());
-            editpostal.setText(carte.getPostal());
-            editcity.setText(carte.getCity());
+            editcity.setText(carte.getAddress()+" "+carte.getPostal()+" "+carte.getCity());
         }
 
         List<Image> images = dataSource.getAllImage();
@@ -123,6 +125,9 @@ public class ProfilFragment extends Fragment {
 
         dataSource.close();
 
+        cdv.setVisibility(LinearLayout.VISIBLE);
+        qr_code.setVisibility(LinearLayout.INVISIBLE);
+        send_number.setVisibility(LinearLayout.INVISIBLE);
 
         setHasOptionsMenu(true);
 
@@ -144,7 +149,7 @@ public class ProfilFragment extends Fragment {
                 send_number.setVisibility(LinearLayout.INVISIBLE);
 
                 image = (ImageView) getActivity().findViewById(R.id.imageView);
-                String data =editnumero.getText().toString();
+                String data = editnumero.getText().toString();
                 code = new Code(data);
                 image.setImageBitmap(code.dataToBitmap());
 
@@ -159,9 +164,20 @@ public class ProfilFragment extends Fragment {
                 cdv.setVisibility(LinearLayout.INVISIBLE);
                 qr_code.setVisibility(LinearLayout.INVISIBLE);
 
+                String chaine = editcity.getText().toString();
+                String[] mChaine = chaine.split(",");
+                String adresse = " ";
+                String postal = " ";
+                String city = " ";
+                if(mChaine.length == 3){
+                    adresse = mChaine[0];
+                    postal = mChaine[1];
+                    city = mChaine[2];
+                }
+
                 msg ="CDV" +"\n"+editprenom.getText().toString() + " "+editname.getText().toString()+"\n " +
-                        editemail.getText().toString()+"\n " +editadresse.getText().toString() +" "+
-                        editpostal.getText().toString() +" "+ editcity.getText().toString();
+                        editemail.getText().toString()+"\n " +adresse +" "+
+                       postal +" "+ city;
             }
         });
 
@@ -188,8 +204,6 @@ public class ProfilFragment extends Fragment {
     }
 
 
-
-
     //gestion du menu de settings
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -198,11 +212,25 @@ public class ProfilFragment extends Fragment {
             case R.id.save_profil:
                 dataSource.open();
 
+                String chaine = editcity.getText().toString();
+                String[] mChaine = chaine.split(",");
+                String adresse = " ";
+                String postal = " ";
+                String city = " ";
+                
+                if(mChaine.length == 3){
+                    adresse = mChaine[0];
+                    postal = mChaine[1];
+                    city = mChaine[2];
+                }
+
                 dataSource.createProfil(editname.getText().toString(), editprenom.getText().toString(), editemail.getText().toString(),
-                        editnumero.getText().toString(), editadresse.getText().toString(), editpostal.getText().toString(), editcity.getText().toString());
+                        editnumero.getText().toString(),adresse,postal, city);
 
                 dataSource.close();
                 Toast.makeText(getActivity(), "Profil Sauvegardé", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivityForResult(intent, MODIFICATION);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

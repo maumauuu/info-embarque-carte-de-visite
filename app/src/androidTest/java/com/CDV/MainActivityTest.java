@@ -53,7 +53,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
                 .check(matches(isDisplayed()));
         onView(withId(R.id.layoutcdv))
                 .perform(click());
-        onView(withId(R.id.cdv))
+         onView(withId(R.id.cdv))
                 .check(matches(isDisplayed()));
 
     }

@@ -10,155 +10,95 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/cdv"
-                android:visibility="invisible"
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/fond_card"
+                android:background="@color/gold"
                 android:layout_weight="2"
                 android:layout_margin="15dp"
                 android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
                 <EditText
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
-                    android:textColor="#CECECE"
-                    android:text="Name"
-                    android:padding="5dp"
+                    android:inputType="textPersonName"
                     android:background="@android:color/transparent"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:id="@+id/editname"
-                    android:layout_above="@+id/editnumero"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="21dp" />
-
-                <EditText
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="textCapCharacters"
-                    android:textColor="#CECECE"
-                    android:padding="5dp"
-                    android:textSize="20dp"
-                    android:text="LASTNAME"
+                    android:text="Lastname"
                     android:ems="10"
-                    android:id="@+id/editlastname"
-                    android:background="@android:color/transparent"
-                    android:layout_marginStart="22dp"
-                    android:layout_alignBaseline="@+id/editname"
-                    android:layout_alignBottom="@+id/editname"
-                    android:layout_toEndOf="@+id/editadresse" />
+                    android:textColor="#CECECE"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="180dp"
+                    android:id="@+id/editlastname"/>
 
                 <com.CDV.RoundedImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/img"
-                    android:onClick="choosePicture"
-                    android:src="@mipmap/ic_launcher"/>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#FFFFFF">
-            </View>
-            <EditText
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:textColor="#CECECE"
-                android:text="Email"
-                android:padding="5dp"
-                android:textSize="13dp"
-                android:ems="10"
-                android:background="@android:color/transparent"
-                android:id="@+id/editemail"
-                android:layout_above="@+id/editcity"
-                android:layout_alignParentEnd="true"
-                android:layout_marginBottom="34dp" />
-
-            <EditText
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:textColor="#CECECE"
-                android:text="Numero"
-                android:textSize="15dp"
-                android:padding="10dp"
-                android:background="@android:color/transparent"
-                android:ems="15"
-                android:id="@+id/editnumero"
-                android:layout_above="@+id/editemail"
-                android:layout_alignParentEnd="true"
-                android:layout_marginBottom="19dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:id="@+id/img"
+                        android:onClick="choosePicture"
+                        android:src="@mipmap/ic_launcher"/>
 
                 <EditText
+                    android:text="adress, postal, city"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textPostalAddress"
-                    android:text="Address"
-                    android:textStyle="italic"
-                    android:textColor="#CECECE"
                     android:background="@android:color/transparent"
-                    android:ems="15"
-                    android:padding="10dp"
-                    android:textSize="15dp"
-                    android:id="@+id/editadresse"
-                    android:layout_alignBaseline="@+id/editpostal"
-                    android:layout_alignBottom="@+id/editpostal"
-                    android:layout_toStartOf="@+id/editpostal"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"/>
-
-                <EditText
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:text="Postal"
-                    android:textStyle="italic"
                     android:textColor="#CECECE"
-                    android:background="@android:color/transparent"
-                    android:ems="15"
-                    android:padding="10dp"
                     android:textSize="15dp"
-                    android:id="@+id/editpostal"
-                    android:layout_alignBaseline="@+id/editcity"
-                    android:layout_alignBottom="@+id/editcity"
-                    android:layout_toStartOf="@+id/editcity"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"/>
-
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="textCapCharacters"
-                    android:textColor="#CECECE"
-                    android:background="@android:color/transparent"
-                    android:text="CITY"
-                    android:padding="10dp"
-                    android:textSize="15dp"
-                    android:textStyle="italic"
-                    android:ems="15"
                     android:id="@+id/editcity"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginBottom="15dp"
-                    android:layout_weight="1"/>
+                    android:layout_marginTop="27dp"
+                    android:layout_alignTop="@+id/editnumero"
+                    android:layout_alignStart="@+id/editnumero"
+                    />
 
-            </LinearLayout>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:textColor="#CECECE"
+                        android:text="Email"
+                        android:padding="5dp"
+                        android:textSize="13dp"
+                        android:ems="10"
+                        android:background="@android:color/transparent"
+                        android:id="@+id/editemail"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/img" />
 
-    </LinearLayout>
+                <EditText
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:background="@android:color/transparent"
+                    android:text="Name"
+                    android:ems="10"
+                    android:textColor="#CECECE"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="12dp"
+                    android:layout_alignStart="@+id/editemail"
+                    android:id="@+id/editname" />
+
+                <EditText
+                        android:text="Numero"
+                        android:inputType="numberDecimal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:id="@+id/editnumero"
+                        android:textSize="15dp"
+                        android:textColor="#CECECE"
+                        android:padding="10dp"
+                        android:ems="15"
+                        android:layout_marginTop="27dp"
+                        android:layout_alignTop="@+id/editemail"
+                        android:layout_alignStart="@+id/editemail" />
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/qr_code"
@@ -176,7 +116,7 @@
                     android:id="@+id/imageView"
                     android:layout_alignParentEnd="true" />
 
-    </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/send_number"
@@ -218,6 +158,7 @@
                     android:onClick="Scanner"
                     />
             </LinearLayout>
+
         </RelativeLayout>
     </LinearLayout>
 

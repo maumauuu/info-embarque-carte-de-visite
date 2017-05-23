@@ -1,12 +1,16 @@
 package com.CDV;
 
 import android.app.Activity;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -15,6 +19,7 @@ import android.provider.Telephony;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -26,10 +31,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.CDV.dataBase.Carte;
 import com.CDV.dataBase.CarteDataSource;
+import com.CDV.dataBase.Image;
 import com.CDV.fragment.GestionContactFragment;
 import com.CDV.fragment.ProfilFragment;
 import com.CDV.util.RefreshEvent;
@@ -38,6 +47,11 @@ import com.google.zxing.integration.android.IntentResult;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
@@ -52,10 +66,18 @@ public class MainActivity extends AppCompatActivity
     private String City;
     private String Postal;
 
+    private RoundedImageView imageMenu;
+    private TextView prenomMenu;
+    private TextView nomMenu;
+    private TextView mailMenu;
+    private TextView numMenu;
+    private TextView adresseMenu;
+
     private TextView textName;
     private TextView textNumero;
     private TextView textEmail;
     private TextView textAdress;
+    private RoundedImageView img;
 
 
     private String expectedPrefix = "CDV";
@@ -68,6 +90,7 @@ public class MainActivity extends AppCompatActivity
     private Intent carte_contact;
     private final int CONTACT_PICKER_RESULT= 2017;
     private final int PICK_IMAGE = 25;
+    private final int MODIFICATION = 10;
 
     private CarteDataSource dataSource;
 
@@ -92,7 +115,34 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        imageMenu = (RoundedImageView) findViewById(R.id.photo);
+        prenomMenu = (TextView) findViewById(R.id.textView5);
+        nomMenu = (TextView) findViewById(R.id.textView6);
+        mailMenu = (TextView) findViewById(R.id.textView7);
+        numMenu = (TextView) findViewById(R.id.textView8);
+        adresseMenu = (TextView) findViewById(R.id.textView9);
+
         dataSource = new CarteDataSource(this);
+
+        dataSource.open();
+        List<Carte> cartes = dataSource.getAllProfil();
+        if (cartes.size() != 0) {
+            Carte carte = cartes.get(cartes.size()-1);
+            prenomMenu.setText(carte.getName());
+            nomMenu.setText(carte.getFullname());
+            mailMenu.setText(carte.getEmail());
+            numMenu.setText(carte.getNumero());
+            adresseMenu.setText(carte.getAddress()+", "+carte.getPostal()+", "+carte.getCity());
+        }
+
+        List<Image> images = dataSource.getAllImage();
+        if (images.size() != 0) {
+            Image image = images.get(images.size()-1);
+
+            imageMenu.setImageBitmap(BitmapFactory.decodeFile(image.getChemin()));
+
+        }
+        dataSource.close();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -107,9 +157,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
-
         try {
             ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
             Bundle bundle = ai.metaData;
@@ -120,10 +167,7 @@ public class MainActivity extends AppCompatActivity
             }
         } catch (PackageManager.NameNotFoundException ex) {
             Log.e("MainActivity", ex.toString());
-
         }
-
-
     }
 
     String getExpectedPrefix() {
@@ -216,6 +260,8 @@ public class MainActivity extends AppCompatActivity
         textNumero = (TextView) findViewById(R.id.textnumero);
         textEmail = (TextView) findViewById(R.id.textemail);
         textAdress = (TextView) findViewById(R.id.textadresse);
+        img = (RoundedImageView) findViewById(R.id.img);
+
         String str_phone="";
         String email= "";
         String address="";
@@ -236,6 +282,7 @@ public class MainActivity extends AppCompatActivity
             textEmail.setText(email);
             address = getContactAddress(id);
             textAdress.setText(address);
+
         }catch (Exception e) {
             Log.v("ContactPicker", "Parsing contact failed: " + e.getMessage());
         }
@@ -290,9 +337,29 @@ public class MainActivity extends AppCompatActivity
             dataSource.close();
 
         }
+
+        if(requestCode == MODIFICATION){
+            dataSource.open();
+            List<Carte> cartes = dataSource.getAllProfil();
+            if (cartes.size() != 0) {
+                Carte carte = cartes.get(cartes.size()-1);
+                prenomMenu.setText(carte.getName());
+                nomMenu.setText(carte.getFullname());
+                mailMenu.setText(carte.getEmail());
+                numMenu.setText(carte.getNumero());
+                adresseMenu.setText(carte.getAddress()+", "+carte.getPostal()+", "+carte.getCity());
+            }
+
+            List<Image> images = dataSource.getAllImage();
+            if (images.size() != 0) {
+                Image image = images.get(images.size()-1);
+
+                imageMenu.setImageBitmap(BitmapFactory.decodeFile(image.getChemin()));
+
+            }
+            dataSource.close();
+        }
     }
-
-
 
 
     public String getRealPathFromURI(Context context, Uri contentUri) {
@@ -363,6 +430,7 @@ public class MainActivity extends AppCompatActivity
         emailCur.close();
         return email;
     }
+
 
     //recuperation de l'adresse complete (rue + postal +ville)
     private String getContactAddress(String id){
