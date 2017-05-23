@@ -1,7 +1,11 @@
 package com.CDV.fragment;
 
 
+import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Telephony;
 import android.support.v4.app.Fragment;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -17,15 +21,18 @@ import android.widget.Toast;
 import com.CDV.R;
 import com.CDV.dataBase.Carte;
 import com.CDV.dataBase.CarteDataSource;
+import com.CDV.dataBase.Image;
 import com.CDV.util.Code;
 import com.CDV.util.RefreshEvent;
 
+import java.io.File;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
 public class ProfilFragment extends Fragment {
 
+    private ImageView imgUser;
     private EditText editname;
     private EditText editprenom;
     private EditText editemail;
@@ -66,6 +73,7 @@ public class ProfilFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.activity_profil, container, false);
 
+        imgUser = (ImageView) view.findViewById(R.id.img);
         editname = (EditText) view.findViewById(R.id.editname);
         editprenom = (EditText) view.findViewById(R.id.editlastname);
         editemail = (EditText) view.findViewById(R.id.editemail);
@@ -103,6 +111,14 @@ public class ProfilFragment extends Fragment {
             editadresse.setText(carte.getAddress());
             editpostal.setText(carte.getPostal());
             editcity.setText(carte.getCity());
+        }
+
+        List<Image> images = dataSource.getAllImage();
+        if (images.size() != 0) {
+            Image image = images.get(images.size()-1);
+
+            imgUser.setImageBitmap(BitmapFactory.decodeFile(image.getChemin()));
+
         }
 
         dataSource.close();
@@ -152,8 +168,17 @@ public class ProfilFragment extends Fragment {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SmsManager.getDefault().sendTextMessage(send_num.getText().toString(), null, msg, null, null);
-                Toast.makeText(getActivity(), "SMS envoyé", Toast.LENGTH_SHORT).show();
+
+                dataSource.open();
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.putExtra("address",send_num.getText().toString());
+                i.putExtra("sms_body",msg);
+                i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(dataSource.getAllImage().get(dataSource.getAllImage().size()-1).getChemin())));
+                i.setType("image/*");
+                startActivity(i);
+
+                Toast.makeText(getActivity(), "Carte envoyée", Toast.LENGTH_SHORT).show();
+                dataSource.close();
             }
         });
 

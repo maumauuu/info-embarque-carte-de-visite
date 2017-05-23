@@ -12,13 +12,14 @@ public class CustomFragmentPageAdapter extends FragmentPagerAdapter {
     public CustomFragmentPageAdapter(FragmentManager fm) {
         super(fm);
     }
+
     @Override
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new SeeContactFragment();
-            case 1:
                 return new ProfilFragment();
+            case 1:
+                return new SeeContactFragment();
         }
         return null;
     }
@@ -30,9 +31,9 @@ public class CustomFragmentPageAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "See contacts";
-            case 1:
                 return "Profil";
+            case 1:
+                return "See contacts";
         }
         return null;
     }

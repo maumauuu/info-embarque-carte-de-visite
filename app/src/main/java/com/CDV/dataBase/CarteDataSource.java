@@ -15,14 +15,12 @@ public class CarteDataSource {
 
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
-    private String[] allColumns = {MySQLiteHelper.COLUMN_ID, MySQLiteHelper.COLUMN_NAME,
-        MySQLiteHelper.COLUMN_FULLNAME, MySQLiteHelper.COLUMN_EMAIL, MySQLiteHelper.COLUMN_NUMERO,
-            MySQLiteHelper.COLUMN_ADDRESS, MySQLiteHelper.COLUMN_CITY, MySQLiteHelper.COLUMN_POSTAL};
 
     private String[] allColumnsProfil = {MySQLiteHelper.PROFIL_ID, MySQLiteHelper.PROFIL_NAME,
             MySQLiteHelper.PROFIL_FULLNAME, MySQLiteHelper.PROFIL_EMAIL, MySQLiteHelper.PROFIL_NUMERO,
             MySQLiteHelper.PROFIL_ADDRESS, MySQLiteHelper.PROFIL_CITY, MySQLiteHelper.PROFIL_POSTAL};
 
+    private String[] allColumnsImage = {MySQLiteHelper.IMAGE_ID, MySQLiteHelper.IMAGE_CHEMIN};
 
     public CarteDataSource(Context context){
         dbHelper = new MySQLiteHelper(context);
@@ -34,29 +32,6 @@ public class CarteDataSource {
 
     public void close(){
         dbHelper.close();
-    }
-
-    public Carte createCarte(String name, String fullname, String email, String numero, String address, String city, String postal){
-        ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_NAME, name);
-        values.put(MySQLiteHelper.COLUMN_FULLNAME, fullname);
-        values.put(MySQLiteHelper.COLUMN_EMAIL, email);
-        values.put(MySQLiteHelper.COLUMN_NUMERO, numero);
-        values.put(MySQLiteHelper.COLUMN_ADDRESS, address);
-        values.put(MySQLiteHelper.COLUMN_CITY, city);
-        values.put(MySQLiteHelper.COLUMN_POSTAL, postal);
-
-        long insertId = database.insert(MySQLiteHelper.TABLE_CARTE, null, values);
-
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_CARTE, allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
-                null, null, null);
-
-        cursor.moveToFirst();
-        Carte newCarte = cursorToComment(cursor);
-        cursor.close();
-
-        return newCarte;
-
     }
 
     public Carte createProfil(String name, String fullname, String email, String numero, String address, String city, String postal){
@@ -82,26 +57,23 @@ public class CarteDataSource {
 
     }
 
-    public void deleteCarte(Carte carte){
-        long id = carte.getId();
-        database.delete(MySQLiteHelper.TABLE_CARTE, MySQLiteHelper.COLUMN_ID + " = " + id, null);
-    }
+    public Image createImage(String chemin){
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.IMAGE_CHEMIN, chemin);
 
-    public List<Carte> getAllCarte(){
-        List<Carte> cartes = new ArrayList<Carte>();
+        long insertId = database.insert(MySQLiteHelper.TABLE_IMAGE, null, values);
 
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_CARTE, allColumns, null, null, null, null, null);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_IMAGE, allColumnsImage, MySQLiteHelper.IMAGE_ID + " = " + insertId, null,
+                null, null, null);
 
         cursor.moveToFirst();
-        while(!cursor.isAfterLast()){
-            Carte carte = cursorToComment(cursor);
-            cartes.add(carte);
-            cursor.moveToNext();
-        }
-
+        Image newImage = cursorToCommentImage(cursor);
         cursor.close();
-        return cartes;
+
+        return newImage;
+
     }
+
 
     public List<Carte> getAllProfil(){
         List<Carte> cartes = new ArrayList<Carte>();
@@ -119,6 +91,22 @@ public class CarteDataSource {
         return cartes;
     }
 
+    public List<Image> getAllImage(){
+        List<Image> images = new ArrayList<Image>();
+
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_IMAGE, allColumnsImage, null, null, null, null, null);
+
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            Image image = cursorToCommentImage(cursor);
+            images.add(image);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return images;
+    }
+
     private Carte cursorToComment(Cursor cursor){
         Carte carte = new Carte();
         carte.setId(cursor.getLong(0));
@@ -130,5 +118,12 @@ public class CarteDataSource {
         carte.setCity(cursor.getString(6));
         carte.setPostal(cursor.getString(7));
         return carte;
+    }
+
+    private Image cursorToCommentImage(Cursor cursor){
+        Image image = new Image();
+        image.setId(cursor.getLong(0));
+        image.setChemin(cursor.getString(1));
+        return image;
     }
 }

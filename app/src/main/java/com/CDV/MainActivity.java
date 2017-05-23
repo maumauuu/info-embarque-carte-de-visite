@@ -1,5 +1,7 @@
 package com.CDV;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
@@ -8,6 +10,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.provider.Telephony;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -26,6 +29,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.CDV.dataBase.CarteDataSource;
 import com.CDV.fragment.GestionContactFragment;
 import com.CDV.fragment.ProfilFragment;
 import com.CDV.util.RefreshEvent;
@@ -63,6 +67,9 @@ public class MainActivity extends AppCompatActivity
 
     private Intent carte_contact;
     private final int CONTACT_PICKER_RESULT= 2017;
+    private final int PICK_IMAGE = 25;
+
+    private CarteDataSource dataSource;
 
     public void setName(String Name1){Name = Name1;}
     public void setLastName(String LastName1){LastName = LastName1;}
@@ -85,10 +92,12 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        dataSource = new CarteDataSource(this);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Bundle bundl = new Bundle();
-        bundl.putInt("pos", 1);
+        bundl.putInt("pos", 0);
         Fragment fragment = new GestionContactFragment();
         fragment.setArguments(bundl);
         fragmentTransaction.replace(R.id.content_frame, fragment);
@@ -100,9 +109,12 @@ public class MainActivity extends AppCompatActivity
 
 
         //Gestion de la reception des sms
-        MyReceiver receiver = new MyReceiver(this);
+        //MyReceiver receiver = new MyReceiver(this);
+
+        MMSReceiver receiver = new MMSReceiver();
         IntentFilter filter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
         registerReceiver(receiver, filter);
+
 
         try {
             ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
@@ -125,6 +137,12 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    public void choosePicture(View view){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+    }
     //creation du menu de settings
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -272,7 +290,36 @@ public class MainActivity extends AppCompatActivity
 
         }
 
+        if(requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK){
+
+            Uri uri = data.getData();
+
+            dataSource.open();
+            dataSource.createImage(getRealPathFromURI(this, uri));
+            dataSource.close();
+
+        }
     }
+
+
+
+
+    public String getRealPathFromURI(Context context, Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = { MediaStore.Images.Media.DATA };
+            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
+
 
     //methode pour remplir les champs
     public void Fill(String c) {
