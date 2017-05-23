@@ -177,7 +177,6 @@ public class ProfilFragment extends Fragment {
                 i.setType("image/*");
                 startActivity(i);
 
-                Toast.makeText(getActivity(), "Carte envoyée", Toast.LENGTH_SHORT).show();
                 dataSource.close();
             }
         });

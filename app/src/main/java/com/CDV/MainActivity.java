@@ -108,12 +108,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        //Gestion de la reception des sms
-        //MyReceiver receiver = new MyReceiver(this);
-
-        MMSReceiver receiver = new MMSReceiver();
-        IntentFilter filter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
-        registerReceiver(receiver, filter);
 
 
         try {
@@ -216,9 +210,6 @@ public class MainActivity extends AppCompatActivity
                 ContactsContract.Contacts.CONTENT_URI);
         startActivityForResult(contactPickerIntent, CONTACT_PICKER_RESULT);
     }
-
-
-
 
     public void getContact(Cursor cursor){
         textName = (TextView) findViewById(R.id.textname);
