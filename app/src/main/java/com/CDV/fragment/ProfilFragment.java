@@ -186,13 +186,20 @@ public class ProfilFragment extends Fragment {
             public void onClick(View view) {
 
                 dataSource.open();
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.putExtra("address",send_num.getText().toString());
-                i.putExtra("sms_body",msg);
-                i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(dataSource.getAllImage().get(dataSource.getAllImage().size()-1).getChemin())));
-                i.setType("image/*");
-                startActivity(i);
 
+                if(!send_num.getText().toString().equals("")) {
+                    if(dataSource.getAllImage().size() != 0) {
+                        Intent i = new Intent(Intent.ACTION_SEND);
+                        i.putExtra("address", send_num.getText().toString());
+                        i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(dataSource.getAllImage().get(dataSource.getAllImage().size() - 1).getChemin())));
+                        i.setType("image/*");
+                        startActivity(i);
+                    }
+
+                    SmsManager.getDefault().sendTextMessage(send_num.getText().toString(), null, msg, null, null);
+                }else{
+                    Toast.makeText(getActivity(), "Vous n'avez pas entré de numéro", Toast.LENGTH_SHORT);
+                }
                 dataSource.close();
             }
         });
@@ -217,7 +224,7 @@ public class ProfilFragment extends Fragment {
                 String adresse = " ";
                 String postal = " ";
                 String city = " ";
-                
+
                 if(mChaine.length == 3){
                     adresse = mChaine[0];
                     postal = mChaine[1];

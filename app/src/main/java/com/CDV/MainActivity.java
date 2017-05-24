@@ -1,6 +1,7 @@
 package com.CDV;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -49,6 +50,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -57,6 +59,9 @@ import de.greenrobot.event.EventBus;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String ACTION_MMS_RECEIVED = "android.provider.Telephony.WAP_PUSH_RECEIVED";
+    private static final String MMS_DATA_TYPE = "application/vnd.wap.mms-message";
 
     private String Name;
     private String LastName;
@@ -114,6 +119,8 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+
 
         imageMenu = (RoundedImageView) findViewById(R.id.photo);
         prenomMenu = (TextView) findViewById(R.id.textView5);
@@ -260,7 +267,7 @@ public class MainActivity extends AppCompatActivity
         textNumero = (TextView) findViewById(R.id.textnumero);
         textEmail = (TextView) findViewById(R.id.textemail);
         textAdress = (TextView) findViewById(R.id.textadresse);
-        img = (RoundedImageView) findViewById(R.id.img);
+        img = (RoundedImageView) findViewById(R.id.imgContact);
 
         String str_phone="";
         String email= "";
@@ -283,12 +290,37 @@ public class MainActivity extends AppCompatActivity
             address = getContactAddress(id);
             textAdress.setText(address);
 
+            getContactPhoto(id);
+
         }catch (Exception e) {
             Log.v("ContactPicker", "Parsing contact failed: " + e.getMessage());
         }
-
     }
 
+    private void getContactPhoto(String id) {
+
+        Bitmap photo = null;
+
+        try {
+            InputStream inputStream = ContactsContract.Contacts.openContactPhotoInputStream(getContentResolver(),
+                    ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, new Long(id)));
+
+            if (inputStream != null) {
+                System.out.println(inputStream.toString());
+                photo = BitmapFactory.decodeStream(inputStream);
+                img.setImageBitmap(photo);
+            } else{
+                img.setBackgroundColor(getResources().getColor(R.color.black));
+            }
+
+
+            assert inputStream != null;
+            inputStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -360,6 +392,8 @@ public class MainActivity extends AppCompatActivity
             dataSource.close();
         }
     }
+
+
 
 
     public String getRealPathFromURI(Context context, Uri contentUri) {

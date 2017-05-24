@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:layout_height= "match_parent"
+    android:layout_width="match_parent"
+    android:padding="15dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical">
+
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:background="@color/gold"
     android:orientation="vertical"
     >
 
@@ -27,12 +35,9 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="21dp"/>
         />
+
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:background="#FFFFFF">
-    </View>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -82,6 +87,12 @@
             android:layout_weight="1"/>
     </LinearLayout>
 
+</LinearLayout>
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
 
         <Button
             android:layout_width="wrap_content"
@@ -89,6 +100,9 @@
             android:text="Enregistrer Contact"
             android:id="@+id/save"
             android:layout_gravity="center_horizontal"
-            android:onClick="AddContact"/>
-
-</LinearLayout>
+            android:onClick="AddContact"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="14dp" />
+    </RelativeLayout>
+    </LinearLayout>
