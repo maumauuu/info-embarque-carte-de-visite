@@ -61,7 +61,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     }
 
     @Test
-    @Ignore
     public void testClickLayoutsend() {
         onView(withId(R.id.layoutSend))
                 .check(matches(isDisplayed()));
