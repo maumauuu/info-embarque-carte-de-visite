@@ -1,14 +1,12 @@
 package com.CDV;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,7 +18,6 @@ import android.provider.Telephony;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -31,8 +28,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,16 +36,13 @@ import com.CDV.dataBase.Carte;
 import com.CDV.dataBase.CarteDataSource;
 import com.CDV.dataBase.Image;
 import com.CDV.fragment.GestionContactFragment;
-import com.CDV.fragment.ProfilFragment;
 import com.CDV.util.RefreshEvent;
+import com.CDV.util.RoundedImageView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -163,6 +155,10 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        MyReceiver receiver = new MyReceiver(this);
+        IntentFilter filter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
+        registerReceiver(receiver, filter);
 
         try {
             ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
@@ -344,7 +340,7 @@ public class MainActivity extends AppCompatActivity
         if (requestCode == CONTACT_PICKER_RESULT && resultCode == RESULT_OK) {
             Uri contactUri = data.getData();
             Cursor cursor = getContentResolver().query(contactUri, null, null, null, null);
-            LinearLayout carteProfilOther = (LinearLayout) findViewById(R.id.carte_other);
+            RelativeLayout carteProfilOther = (RelativeLayout) findViewById(R.id.carte_other);
             carteProfilOther.setVisibility(LinearLayout.VISIBLE);
             getContact(cursor);
          }

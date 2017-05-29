@@ -1,8 +1,6 @@
 package com.CDV.dataBase;
 
-/**
- * Created by thomas on 23/05/17.
- */
+
 
 public class Image {
 

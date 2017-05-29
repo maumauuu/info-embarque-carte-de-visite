@@ -57,7 +57,7 @@
         android:layout_marginBottom="15dp"
         android:layout_alignParentStart="true" />
 
-    <com.CDV.RoundedImageView
+    <com.CDV.util.RoundedImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:id="@+id/photo"

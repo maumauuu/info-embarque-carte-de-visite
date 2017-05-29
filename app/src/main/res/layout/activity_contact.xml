@@ -9,7 +9,7 @@
     tools:context=".fragment.SeeContactFragment">
 
     <Button
-        android:id="@+id/Scan"
+        android:id="@+id/ChooseContact"
         android:layout_marginLeft="50sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
 
     <RelativeLayout
         android:id="@+id/carte_other"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/gold"
@@ -30,7 +30,7 @@
         android:orientation="vertical">
 
 
-            <com.CDV.RoundedImageView
+            <com.CDV.util.RoundedImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:id="@+id/imgContact"

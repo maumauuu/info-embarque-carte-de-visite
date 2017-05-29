@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Telephony;
 import android.support.v4.app.Fragment;
 import android.telephony.SmsManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,12 +16,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.CDV.MainActivity;
 import com.CDV.R;
-import com.CDV.RoundedImageView;
 import com.CDV.dataBase.Carte;
 import com.CDV.dataBase.CarteDataSource;
 import com.CDV.dataBase.Image;
@@ -195,7 +191,7 @@ public class ProfilFragment extends Fragment {
                         i.setType("image/*");
                         startActivity(i);
                     }
-
+                    Toast.makeText(getActivity(), "SMS envoyé", Toast.LENGTH_SHORT).show();
                     SmsManager.getDefault().sendTextMessage(send_num.getText().toString(), null, msg, null, null);
                 }else{
                     Toast.makeText(getActivity(), "Vous n'avez pas entré de numéro", Toast.LENGTH_SHORT);
