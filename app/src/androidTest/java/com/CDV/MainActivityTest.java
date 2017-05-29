@@ -6,6 +6,8 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import android.support.test.runner.AndroidJUnit4;
 
+import com.CDV.fragment.SeeContactFragment;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +23,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
-
+    private SeeContactFragment seeContact;
 
     public MainActivityTest() {
         super(MainActivity.class);
@@ -80,6 +82,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
                 .check(matches(isDisplayed()));
 
     }
+
 
 
 }

@@ -184,13 +184,13 @@ public class ProfilFragment extends Fragment {
                 dataSource.open();
 
                 if(!send_num.getText().toString().equals("")) {
-                    if(dataSource.getAllImage().size() != 0) {
+                   /* if(dataSource.getAllImage().size() != 0) {
                         Intent i = new Intent(Intent.ACTION_SEND);
                         i.putExtra("address", send_num.getText().toString());
                         i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(dataSource.getAllImage().get(dataSource.getAllImage().size() - 1).getChemin())));
                         i.setType("image/*");
                         startActivity(i);
-                    }
+                    }*/
                     Toast.makeText(getActivity(), "SMS envoyé", Toast.LENGTH_SHORT).show();
                     SmsManager.getDefault().sendTextMessage(send_num.getText().toString(), null, msg, null, null);
                 }else{
