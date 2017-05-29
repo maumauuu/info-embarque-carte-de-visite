@@ -216,7 +216,7 @@
                     android:layout_height="match_parent"
                     android:padding="10dp"
                     android:layout_weight="5"
-                    android:src="@drawable/ic_menu_send"
+                    android:src="@drawable/abc_btn_radio_to_on_mtrl_015"
                     />
                 <TextView
                     android:textSize="15dp"
@@ -244,7 +244,7 @@
                     android:layout_height="match_parent"
                     android:padding="10dp"
                     android:layout_weight="5"
-                    android:src="@drawable/abc_btn_radio_to_on_mtrl_015"
+                    android:src="@drawable/ic_menu_send"
                     />
 
                 <TextView
@@ -256,11 +256,15 @@
                     android:layout_height="match_parent"
                     android:id="@+id/textView3" />
             </LinearLayout>
+
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="#FFFF00">
             </View>
+
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
