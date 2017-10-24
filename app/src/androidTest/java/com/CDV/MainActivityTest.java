@@ -3,7 +3,6 @@ package com.CDV;
 
 import android.support.test.InstrumentationRegistry;
 import android.test.ActivityInstrumentationTestCase2;
-
 import android.support.test.runner.AndroidJUnit4;
 
 import com.CDV.fragment.SeeContactFragment;
